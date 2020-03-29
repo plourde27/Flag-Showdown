@@ -30,6 +30,6 @@ public class Display extends drawInterface {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
-        player.display();
+        player.display(g, kb);
     }
 }
