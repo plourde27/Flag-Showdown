@@ -12,12 +12,14 @@ public class Display extends drawInterface {
     Game game;
     Mouse mouse;
     Keyboard kb;
+    Player player;
     
     public Display(Game g, Mouse m, Keyboard k) {
         super();
         game = g;
         mouse = m;
         kb = k;
+        player = new Player();
         
     }
     
@@ -27,6 +29,7 @@ public class Display extends drawInterface {
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        rect(300, 300, 100, 100, g);
+        
+        player.display();
     }
 }
