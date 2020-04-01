@@ -23,6 +23,7 @@ public class Player extends drawInterface {
     }
     
     public void update(Keyboard kb) {
+        
         if (kb.keys[87]) {
             x += Math.cos(ang * (Math.PI / 180)) * SPEED;
             y += Math.sin(ang * (Math.PI / 180)) * SPEED;

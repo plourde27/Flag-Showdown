@@ -19,7 +19,9 @@ public class drawInterface extends JComponent {
     
     
     public drawInterface() {
-        
+        tx = 0;
+        ty = 0;
+        scl = 1.0;
     }
     
     public void repaint() {
@@ -30,9 +32,18 @@ public class drawInterface extends JComponent {
         super.paintComponent(g);
     }
     
+    public void translate(int x, int y) {
+        tx += x;
+        ty += y;
+    }
+    
+    public void scale(double s) {
+        scl = (scl * s);
+    }
+    
     public int[] transform(int x, int y) {
-        x = (int) ((x - coords[0]) * scl);
-        y = (int) ((y - coords[1]) * scl);
+        x = (int) ((x - tx) * scl);
+        y = (int) ((y - ty) * scl);
         return new int[]{x, y};
     }
     
@@ -42,13 +53,14 @@ public class drawInterface extends JComponent {
         int oy = y;
         x = transform(ox, oy)[0];
         y = transform(ox, oy)[1];
-        System.out.println(x + " " + y);
         g.fillRect(x - w / 2, y - h / 2, (int) (w * scl), (int) (h * scl));
     }
     
     public void ellipse(int x, int y, int w, int h, Graphics g) {
+        System.out.println(x + " " + y);
         x = transform(x, y)[0];
         y = transform(x, y)[1];
+        System.out.println(x + " " + y + " " + tx + " " + ty);
         g.fillOval((int) (x - (w * scl) / 2), (int) (y - (h * scl) / 2), (int) (w * scl), (int) (h * scl));
     }
     
@@ -95,5 +107,11 @@ public class drawInterface extends JComponent {
         g.fillPolygon(new Polygon(x, y, xs.size()));
         xs = new ArrayList<Integer>();
         ys = new ArrayList<Integer>();
+    }
+    
+    public void resetMatrix() {
+        tx = 0;
+        ty = 0;
+        scl = 1.0;
     }
 }

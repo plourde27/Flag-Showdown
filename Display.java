@@ -30,6 +30,21 @@ public class Display extends drawInterface {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
+        resetMatrix();
+        
+        
+        
+        translate(player.x, player.y);
         player.display(g, kb);
+        
+        
+        
+        fill(0, 0, 0, g);
+        for (int i = -10000 ; i < 10000 ; i += 200) {
+            line(-10000, i, 10000, i, g);
+            line(i, -10000, i, 10000, g);
+        }
+        
+        
     }
 }
