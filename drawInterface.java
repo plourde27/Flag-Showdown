@@ -9,8 +9,8 @@ import java.lang.Math.*;
 
 public class drawInterface extends JComponent {
     
-    int tx = 0;
-    int ty = 0;
+    private int tx = 0;
+    private int ty = 0;
     double scl = 1.0;
     int ang = 0;
     int[] coords = new int[]{0, 0, 1080, 720};
@@ -19,9 +19,9 @@ public class drawInterface extends JComponent {
     
     
     public drawInterface() {
-        tx = 0;
+        /*tx = 0;
         ty = 0;
-        scl = 1.0;
+        scl = 1.0;*/
     }
     
     public void repaint() {
@@ -41,26 +41,23 @@ public class drawInterface extends JComponent {
         scl = (scl * s);
     }
     
-    public int[] transform(int x, int y) {
-        x = (int) ((x - tx) * scl);
-        y = (int) ((y - ty) * scl);
-        return new int[]{x, y};
+    public int[] transform(int x, int y, int tx, int ty) {
+        int xx = (int) ((x - tx) * scl);
+        int yy = (int) ((y - ty) * scl);
+        return new int[]{xx, yy};
     }
     
-    public void rect(int x, int y, int w, int h, Graphics g) {
-        System.out.println(x + " " + y);
+    public void rect(int x, int y, int w, int h, Graphics g, int tx, int ty) {
         int ox = x;
         int oy = y;
-        x = transform(ox, oy)[0];
-        y = transform(ox, oy)[1];
+        x = transform(ox, oy, tx, ty)[0];
+        y = transform(ox, oy, tx, ty)[1];
         g.fillRect(x - w / 2, y - h / 2, (int) (w * scl), (int) (h * scl));
     }
     
-    public void ellipse(int x, int y, int w, int h, Graphics g) {
-        System.out.println(x + " " + y);
-        x = transform(x, y)[0];
-        y = transform(x, y)[1];
-        System.out.println(x + " " + y + " " + tx + " " + ty);
+    public void ellipse(int x, int y, int w, int h, Graphics g, int tx, int ty) {
+        x = transform(x, y, tx, ty)[0];
+        y = transform(x, y, tx, ty)[1];
         g.fillOval((int) (x - (w * scl) / 2), (int) (y - (h * scl) / 2), (int) (w * scl), (int) (h * scl));
     }
     
@@ -72,27 +69,27 @@ public class drawInterface extends JComponent {
         g.setFont(new Font("Avenir", Font.PLAIN, sz));
     }
     
-    public void text(String txt, int x, int y, Graphics g) {
-        x = transform(x, y)[0];
-        y = transform(x, y)[1];
+    public void text(String txt, int x, int y, Graphics g, int tx, int ty) {
+        x = transform(x, y, tx, ty)[0];
+        y = transform(x, y, tx, ty)[1];
         g.drawString(txt, x, y);
     }
     
-    public void line(int x1, int y1, int x2, int y2, Graphics g) {
+    public void line(int x1, int y1, int x2, int y2, Graphics g, int tx, int ty) {
         int ox1 = x1;
         int oy1 = y1;
         int ox2 = x2;
         int oy2 = y2;
-        x1 = transform(ox1, oy1)[0];
-        y1 = transform(ox1, oy1)[1];
-        x2 = transform(ox2, oy2)[0];
-        y2 = transform(ox2, oy2)[1];
+        x1 = transform(ox1, oy1, tx, ty)[0];
+        y1 = transform(ox1, oy1, tx, ty)[1];
+        x2 = transform(ox2, oy2, tx, ty)[0];
+        y2 = transform(ox2, oy2, tx, ty)[1];
         g.drawLine(x1, y1, x2, y2);
     }
     
-    public void vertex(int x, int y) {
-        int x1 = transform(x, y)[0];
-        int y1 = transform(x, y)[1];
+    public void vertex(int x, int y, int tx, int ty) {
+        int x1 = transform(x, y, tx, ty)[0];
+        int y1 = transform(x, y, tx, ty)[1];
         xs.add(x1);
         ys.add(y1);
     }

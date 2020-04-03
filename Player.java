@@ -14,12 +14,12 @@ public class Player extends drawInterface {
     public Player() {
         x = 500;
         y = 500;
-        ang = 0;
+        ang = -90;
     }
     
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int tx, int ty) {
         fill(0, 0, 200, g);
-        ellipse(x, y, 30, 30, g);
+        ellipse(x, y, 30, 30, g, tx, ty);
     }
     
     public void update(Keyboard kb) {
@@ -36,8 +36,8 @@ public class Player extends drawInterface {
         }
     }
     
-    public void display(Graphics g, Keyboard kb) {
-        draw(g);
+    public void display(Graphics g, Keyboard kb, int tx, int ty) {
+        draw(g, tx, ty);
         update(kb);
     }
 }

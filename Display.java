@@ -13,6 +13,7 @@ public class Display extends drawInterface {
     Mouse mouse;
     Keyboard kb;
     Player player;
+    int tx, ty;
     
     public Display(Game g, Mouse m, Keyboard k) {
         super();
@@ -20,29 +21,38 @@ public class Display extends drawInterface {
         mouse = m;
         kb = k;
         player = new Player();
-        
+        tx = 0;
+        ty = 0;
     }
     
     public void draw(){
         super.repaint();
     }
     
+    public void resetMatrix() {
+        tx = 0;
+        ty = 0;
+    }
+    
+    public void translate(int xx, int yy) {
+        tx += xx;
+        ty += yy;
+    }
+    
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
         resetMatrix();
+        translate(player.x - 540, player.y - 360);
+        
+        player.display(g, kb, tx, ty);
         
         
         
-        translate(player.x, player.y);
-        player.display(g, kb);
-        
-        
-        
-        fill(0, 0, 0, g);
+        fill(120, 120, 120, g);
         for (int i = -10000 ; i < 10000 ; i += 200) {
-            line(-10000, i, 10000, i, g);
-            line(i, -10000, i, 10000, g);
+            line(-10000, i, 10000, i, g, tx, ty);
+            line(i, -10000, i, 10000, g, tx, ty);
         }
         
         
