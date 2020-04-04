@@ -12,8 +12,8 @@ public class Player extends drawInterface {
     final int SPEED = 3;
     final int ANGDIST = 4;
     public Player() {
-        x = 500;
-        y = 500;
+        x = 2500;
+        y = 2500;
         ang = -90;
     }
     

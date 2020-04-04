@@ -50,8 +50,8 @@ public class Display extends drawInterface {
         map.drawMap(g, tx, ty);
         player.display(g, kb, tx, ty);
         
-        System.out.println("hello!");
-        System.out.println(player.x + " " + player.y);
+        //System.out.println("hello!");
+        //System.out.println(player.x + " " + player.y);
         
         fill(120, 120, 120, g);
         for (int i = -10000 ; i < 10000 ; i += 200) {

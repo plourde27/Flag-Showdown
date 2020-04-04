@@ -10,27 +10,31 @@ import java.lang.Math.*;
 public class GameSpace extends drawInterface {
     
     ArrayList<BonusPoint> bonusPoints;
-    final int SIZE = 10000;
-    final int CENTER_RADIUS = 3000;
+    final int SIZE = 5000;
+    final int CENTER_RADIUS = 2000;
     final int MIN_POINTS = 200;
     final int MAX_POINTS = 300;
-    final int CLOSE_DIST = 50;
+    final int CLOSE_DIST = 40;
     
     public GameSpace() {
         bonusPoints = new ArrayList<BonusPoint>();
         int num = (int) (Math.random() * (MAX_POINTS - MIN_POINTS) + MIN_POINTS);
         
         for (int i = 0 ; i < num ; i++) {
-            int ang;
+            double ang;
             int xx;
             int yy;
             double r = Math.random();
             int val = 0;
+            int dst;
+            double c;
             if (r <= 0.9) {
                 val = (int) (r / 0.18 + 1);
+                c = 1;
             }
             else if (r <= 0.99) {
                 val = 6 + ((int) ((r - 0.9) / 0.03)) * 2;
+                c = 0.5;
             }
             else {
                 if (Math.random() <= 0.5) {
@@ -39,19 +43,22 @@ public class GameSpace extends drawInterface {
                 else {
                     val = 50;
                 }
+                c = 0.2;
             }
             
             if (i == 0) {
-                ang = (int) (Math.random() * 2 * Math.PI);
-                xx = (SIZE / 2) + (int) (Math.cos(ang) * CENTER_RADIUS);
-                yy = (SIZE / 2) + (int) (Math.sin(ang) * CENTER_RADIUS);
+                ang = (Math.random() * 2 * Math.PI);
+                dst = (int) (Math.random() * (CENTER_RADIUS * c));
+                xx = (SIZE / 2) + (int) (Math.cos(ang) * dst);
+                yy = (SIZE / 2) + (int) (Math.sin(ang) * dst);
                 bonusPoints.add(new BonusPoint(val, xx, yy));
             }
             int t = 0;
             while (true) {
-                ang = (int) (Math.random() * 2 * Math.PI);
-                xx = (SIZE / 2) + (int) (Math.cos(ang) * CENTER_RADIUS);
-                yy = (SIZE / 2) + (int) (Math.sin(ang) * CENTER_RADIUS);
+                ang = (Math.random() * 2 * Math.PI);
+                dst = (int) (Math.random() * (CENTER_RADIUS * c));
+                xx = (SIZE / 2) + (int) (Math.cos(ang) * dst);
+                yy = (SIZE / 2) + (int) (Math.sin(ang) * dst);
                 boolean valid = true;
                 for (int j = 0 ; j < bonusPoints.size() ; j++) {
                     int x = bonusPoints.get(j).x;
@@ -72,6 +79,7 @@ public class GameSpace extends drawInterface {
     
     public void drawMap(Graphics g, int tx, int ty) {
         for (int i = 0 ; i < bonusPoints.size() ; i++) {
+            //System.out.println(bonusPoints.get(i).x + " " + bonusPoints.get(i).y);
             bonusPoints.get(i).draw(g, tx, ty);
         }
     }
