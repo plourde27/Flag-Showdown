@@ -61,6 +61,10 @@ public class drawInterface extends JComponent {
         g.fillOval((int) (x - (w * scl) / 2), (int) (y - (h * scl) / 2), (int) (w * scl), (int) (h * scl));
     }
     
+    public void fill(Color c, Graphics gr) {
+        gr.setColor(c);
+    }
+    
     public void fill(int r, int g, int b, Graphics gr) {
         gr.setColor(new Color(r, g, b));
     }

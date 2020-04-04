@@ -13,6 +13,7 @@ public class Display extends drawInterface {
     Mouse mouse;
     Keyboard kb;
     Player player;
+    GameSpace map;
     int tx, ty;
     
     public Display(Game g, Mouse m, Keyboard k) {
@@ -21,6 +22,7 @@ public class Display extends drawInterface {
         mouse = m;
         kb = k;
         player = new Player();
+        map = new GameSpace();
         tx = 0;
         ty = 0;
     }
@@ -45,16 +47,16 @@ public class Display extends drawInterface {
         resetMatrix();
         translate(player.x - 540, player.y - 360);
         
+        map.drawMap(g, tx, ty);
         player.display(g, kb, tx, ty);
         
-        
+        System.out.println("hello!");
+        System.out.println(player.x + " " + player.y);
         
         fill(120, 120, 120, g);
         for (int i = -10000 ; i < 10000 ; i += 200) {
             line(-10000, i, 10000, i, g, tx, ty);
             line(i, -10000, i, 10000, g, tx, ty);
         }
-        
-        
     }
 }
