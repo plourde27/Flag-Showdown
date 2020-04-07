@@ -10,6 +10,7 @@ import java.lang.Math.*;
 public class GameSpace extends drawInterface {
     
     ArrayList<BonusPoint> bonusPoints;
+    ArrayList<Bullet> bullets;
     final int SIZE = 5000;
     final int CENTER_RADIUS = 2000;
     final int MIN_POINTS = 200;
@@ -18,6 +19,8 @@ public class GameSpace extends drawInterface {
     
     public GameSpace() {
         bonusPoints = new ArrayList<BonusPoint>();
+        bullets = new ArrayList<Bullet>();
+        
         int num = (int) (Math.random() * (MAX_POINTS - MIN_POINTS) + MIN_POINTS);
         
         for (int i = 0 ; i < num ; i++) {
@@ -81,6 +84,10 @@ public class GameSpace extends drawInterface {
         for (int i = 0 ; i < bonusPoints.size() ; i++) {
             //System.out.println(bonusPoints.get(i).x + " " + bonusPoints.get(i).y);
             bonusPoints.get(i).draw(g, tx, ty);
+        }
+        
+        for (int i = 0 ; i < bullets.size() ; i++) {
+            bullets.get(i).display(g, tx, ty);
         }
     }
 }

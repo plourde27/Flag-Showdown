@@ -11,18 +11,23 @@ public class Player extends drawInterface {
     int x, y, ang;
     int fireRate;
     int bulletSpeed;
-    final int SPEED = 3;
+    final int SPEED = 6;
     final int ANGDIST = 4;
+    int timeout = 0;
+    int points = 0;
+    int[] c;
+    
     public Player() {
         x = 2500;
         y = 2500;
         ang = -90;
-        fireRate = 30;
-        bulletSpeed = 6;
+        fireRate = 10;
+        bulletSpeed = 20;
+        c = new int[]{(int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)};
     }
     
     public void draw(Graphics g, int tx, int ty) {
-        fill(0, 0, 200, g);
+        fill(c[0], c[1], c[2], g);
         ellipse(x, y, 30, 30, g, tx, ty);
     }
     
@@ -42,10 +47,18 @@ public class Player extends drawInterface {
             shoot(d);
             timeout = fireRate;
         }
+        for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {
+            int xx = d.map.bonusPoints.get(i).x;
+            int yy = d.map.bonusPoints.get(i).y;
+            if (Math.sqrt((x-xx)*(x-xx) + (y-yy)*(y-yy)) <= 25) {
+                points += d.map.bonusPoints.remove(i).points;
+                break;
+            }
+        }
     }
     
     public void shoot(Display d) {
-        d.bullets.add(new Bullet(x, y, ang, bulletSpeed));
+        d.map.bullets.add(new Bullet(x, y, ang, bulletSpeed, c));
     }
     
     public void display(Graphics g, Keyboard kb, int tx, int ty, Display d) {

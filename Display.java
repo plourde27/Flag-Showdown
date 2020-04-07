@@ -15,7 +15,7 @@ public class Display extends drawInterface {
     Player player;
     GameSpace map;
     int tx, ty;
-    ArrayList<Bullet> bullets;
+    
     
     public Display(Game g, Mouse m, Keyboard k) {
         super();
@@ -26,7 +26,6 @@ public class Display extends drawInterface {
         map = new GameSpace();
         tx = 0;
         ty = 0;
-        bullets = new ArrayList<Bullet>();
     }
     
     public void draw(){
@@ -54,6 +53,8 @@ public class Display extends drawInterface {
         
         //System.out.println("hello!");
         //System.out.println(player.x + " " + player.y);
+        
+        
         
         fill(120, 120, 120, g);
         for (int i = -10000 ; i < 10000 ; i += 200) {
