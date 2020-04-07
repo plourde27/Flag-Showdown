@@ -11,17 +11,19 @@ public class Display extends drawInterface {
     
     Game game;
     Mouse mouse;
+    MoveMouse mm;
     Keyboard kb;
     Player player;
     GameSpace map;
     int tx, ty;
     
     
-    public Display(Game g, Mouse m, Keyboard k) {
+    public Display(Game g, Mouse m, Keyboard k, MoveMouse mmw) {
         super();
         game = g;
         mouse = m;
         kb = k;
+        mm = mmw;
         player = new Player();
         map = new GameSpace();
         tx = 0;

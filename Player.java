@@ -43,7 +43,11 @@ public class Player extends drawInterface {
         if (kb.keys[65]) {
             ang -= ANGDIST;
         }*/
-        ang = (int) (Math.atan((d.mouse.y - 360) / (d.mouse.x - 540)) * (180.0 / Math.PI));
+        System.out.println((d.mm.y - 360.0) / (d.mm.x - 540.0));
+        ang = (int) (Math.atan((d.mm.y - 360.0) / (d.mm.x - 540.0)) * (180.0 / Math.PI));
+        if (d.mm.x <= 540) {
+            ang += 180;
+        }
         if (kb.keys[32] && timeout <= 0) {
             shoot(d);
             timeout = fireRate;

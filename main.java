@@ -14,7 +14,9 @@ public class main
         frame.addMouseListener(mouse);
         Keyboard keyboard = new Keyboard();
         frame.addKeyListener(keyboard);
-        Display screen = new Display(game, mouse, keyboard);
+        MoveMouse mm = new MoveMouse();
+        frame.addMouseMotionListener(mm);
+        Display screen = new Display(game, mouse, keyboard, mm);
         frame.add(screen);
         
         frame.setBounds(0,0,1080,720);
