@@ -34,7 +34,13 @@ public class BonusPoint extends drawInterface {
         fill(colors.get(points), g);
         ellipse(x, y, 25, 25, g, tx, ty);
         fill(255, 255, 255, g);
-        textSize(25, g);
-        text(Integer.toString(points), x - 12, y + 12, g, tx, ty);
+        if (points < 10) {
+            textSize(19, g);
+            text(Integer.toString(points), x - 6, y + 7, g, tx, ty);
+        }
+        else {
+            textSize(14, g);
+            text(Integer.toString(points), x - 9, y + 6, g, tx, ty);
+        }
     }
 }

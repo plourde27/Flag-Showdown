@@ -23,7 +23,7 @@ public class Player extends drawInterface {
         ang = -90;
         fireRate = 10;
         bulletSpeed = 20;
-        c = new int[]{(int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)};
+        c = new int[]{(int)(Math.random()*180 + 30), (int)(Math.random()*180 + 30), (int)(Math.random()*180 + 30)};
     }
     
     public void draw(Graphics g, int tx, int ty) {
@@ -37,12 +37,13 @@ public class Player extends drawInterface {
             x += Math.cos(ang * (Math.PI / 180)) * SPEED;
             y += Math.sin(ang * (Math.PI / 180)) * SPEED;
         }
-        if (kb.keys[68]) {
+        /*if (kb.keys[68]) {
             ang += ANGDIST;
         }
         if (kb.keys[65]) {
             ang -= ANGDIST;
-        }
+        }*/
+        ang = (int) (Math.atan((d.mouse.y - 360) / (d.mouse.x - 540)) * (180.0 / Math.PI));
         if (kb.keys[32] && timeout <= 0) {
             shoot(d);
             timeout = fireRate;
