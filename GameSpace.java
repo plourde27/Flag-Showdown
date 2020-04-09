@@ -12,10 +12,12 @@ public class GameSpace extends drawInterface {
     ArrayList<BonusPoint> bonusPoints;
     ArrayList<Bullet> bullets;
     final int SIZE = 5000;
-    final int CENTER_RADIUS = 500;
+    final int CENTER_RADIUS = 400;
     final int MIN_POINTS = 20;
     final int MAX_POINTS = 30;
     final int CLOSE_DIST = 20;
+    final int PLAYER_DIST = 1000;
+    final int PLAYER_COUNT = 12;
     ArrayList<Player> players;
     ArrayList<Turret> turrets;
     
@@ -81,6 +83,13 @@ public class GameSpace extends drawInterface {
                 t++;
             }
                     
+        }
+        
+        for (int i = 1 ; i < PLAYER_COUNT ; i++) {
+            CPUPlayer p = new CPUPlayer((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang) * (180.0/Math.PI)), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang) * (180.0/Math.PI)));
+            players.add((Player) p);
+            Turret t = new Turret(p.c, (int)(SIZE/2 + (PLAYER_DIST+200) * Math.cos(ang) * (180.0/Math.PI)), (int)(SIZE/2 + (PLAYER_DIST+200) * Math.sin(ang) * (180.0/Math.PI))
+            turrets.add(t);
         }
     }
     

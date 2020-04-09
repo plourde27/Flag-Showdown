@@ -25,9 +25,10 @@ public class Display extends drawInterface {
         mouse = m;
         kb = k;
         mm = mmw;
-        player = new Player();
-        turret = new Turret(player.c, player.x, player.y);
+        
         map = new GameSpace();
+        player = new Player(map.SIZE/2 + map.PLAYER_DIST, map.SIZE/2);
+        turret = new Turret(player.c, player.x, player.y);
         map.players.add(player);
         tx = 0;
         ty = 0;

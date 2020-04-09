@@ -17,9 +17,9 @@ public class Player extends drawInterface {
     int points = 0;
     int[] c;
     
-    public Player() {
-        x = 2500;
-        y = 2500;
+    public Player(int xx, int yy) {
+        x = xx;
+        y = yy;
         ang = -90;
         fireRate = 10;
         bulletSpeed = 20;
@@ -33,25 +33,6 @@ public class Player extends drawInterface {
     
     public void update(Keyboard kb, Display d) {
         timeout--;
-        if (kb.keys[87]) {
-            x += Math.cos(ang * (Math.PI / 180)) * SPEED;
-            y += Math.sin(ang * (Math.PI / 180)) * SPEED;
-        }
-        /*if (kb.keys[68]) {
-            ang += ANGDIST;
-        }
-        if (kb.keys[65]) {
-            ang -= ANGDIST;
-        }*/
-        System.out.println((d.mm.y - 360.0) / (d.mm.x - 540.0));
-        ang = (int) (Math.atan((d.mm.y - 360.0) / (d.mm.x - 540.0)) * (180.0 / Math.PI));
-        if (d.mm.x <= 540) {
-            ang += 180;
-        }
-        if (kb.keys[32] && timeout <= 0) {
-            shoot(d);
-            timeout = fireRate;
-        }
         for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {
             int xx = d.map.bonusPoints.get(i).x;
             int yy = d.map.bonusPoints.get(i).y;
