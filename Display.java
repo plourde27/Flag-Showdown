@@ -14,6 +14,7 @@ public class Display extends drawInterface {
     MoveMouse mm;
     Keyboard kb;
     Player player;
+    Turret turret;
     GameSpace map;
     int tx, ty;
     
@@ -25,7 +26,9 @@ public class Display extends drawInterface {
         kb = k;
         mm = mmw;
         player = new Player();
+        turret = new Turret(player.c, player.x, player.y);
         map = new GameSpace();
+        map.players.add(player);
         tx = 0;
         ty = 0;
     }
@@ -52,6 +55,7 @@ public class Display extends drawInterface {
         
         map.drawMap(g, tx, ty);
         player.display(g, kb, tx, ty, this);
+        turret.display(g, this, tx, ty);
         
         //System.out.println("hello!");
         //System.out.println(player.x + " " + player.y);

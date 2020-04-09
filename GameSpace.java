@@ -16,10 +16,14 @@ public class GameSpace extends drawInterface {
     final int MIN_POINTS = 20;
     final int MAX_POINTS = 30;
     final int CLOSE_DIST = 20;
+    ArrayList<Player> players;
+    ArrayList<Turret> turrets;
     
     public GameSpace() {
         bonusPoints = new ArrayList<BonusPoint>();
         bullets = new ArrayList<Bullet>();
+        players = new ArrayList<Player>();
+        turrets = new ArrayList<Turret>();
         
         int num = (int) (Math.random() * (MAX_POINTS - MIN_POINTS) + MIN_POINTS);
         
