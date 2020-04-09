@@ -27,9 +27,9 @@ public class Display extends drawInterface {
         mm = mmw;
         
         map = new GameSpace();
-        player = new Player(map.SIZE/2 + map.PLAYER_DIST, map.SIZE/2);
-        turret = new Turret(player.c, player.x, player.y);
-        map.players.add(player);
+        //player = new You(map.SIZE/2 + map.PLAYER_DIST, map.SIZE/2);
+        //turret = new Turret(player.c, player.x, player.y);
+        
         tx = 0;
         ty = 0;
     }
@@ -52,11 +52,9 @@ public class Display extends drawInterface {
         super.paintComponent(g);
         
         resetMatrix();
-        translate(player.x - 540, player.y - 360);
+        translate(map.players.get(0).x - 540, map.players.get(0).y - 360);
         
-        map.drawMap(g, tx, ty);
-        player.display(g, kb, tx, ty, this);
-        turret.display(g, this, tx, ty);
+        map.drawMap(g, tx, ty, this, kb);
         
         //System.out.println("hello!");
         //System.out.println(player.x + " " + player.y);

@@ -85,15 +85,26 @@ public class GameSpace extends drawInterface {
                     
         }
         
-        for (int i = 1 ; i < PLAYER_COUNT ; i++) {
-            CPUPlayer p = new CPUPlayer((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang) * (180.0/Math.PI)), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang) * (180.0/Math.PI)));
-            players.add((Player) p);
-            Turret t = new Turret(p.c, (int)(SIZE/2 + (PLAYER_DIST+200) * Math.cos(ang) * (180.0/Math.PI)), (int)(SIZE/2 + (PLAYER_DIST+200) * Math.sin(ang) * (180.0/Math.PI))
+        for (int i = 0 ; i < PLAYER_COUNT ; i++) {
+            int ang = (int) (i * (360.0 / PLAYER_COUNT));
+            Player pp;
+            if (i > 0) {
+                CPUPlayer p = new CPUPlayer((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))));
+                pp = (Player) p;
+                players.add(pp);
+            }
+            else {
+                You p = new You((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))));
+                pp = (Player) p;
+                players.add(pp);
+            }
+            Turret t = new Turret(pp.c, (int)(SIZE/2 + (PLAYER_DIST+200) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+200) * Math.sin(ang * (Math.PI/180.0))));
             turrets.add(t);
         }
+        System.out.println(players.size());
     }
     
-    public void drawMap(Graphics g, int tx, int ty) {
+    public void drawMap(Graphics g, int tx, int ty, Display d, Keyboard kb) {
         for (int i = 0 ; i < bonusPoints.size() ; i++) {
             //System.out.println(bonusPoints.get(i).x + " " + bonusPoints.get(i).y);
             bonusPoints.get(i).draw(g, tx, ty);
@@ -102,5 +113,15 @@ public class GameSpace extends drawInterface {
         for (int i = 0 ; i < bullets.size() ; i++) {
             bullets.get(i).display(g, tx, ty);
         }
+        
+        for (int i = 0 ; i < players.size() ; i++) {
+            System.out.println(players.get(i));
+            players.get(i).display(g, kb, tx, ty, d);
+        }
+        
+        for (int i = 0 ; i < turrets.size() ; i++) {
+            turrets.get(i).display(g, d, tx, ty);
+        }
+            
     }
 }
