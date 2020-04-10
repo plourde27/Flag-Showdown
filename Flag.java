@@ -52,8 +52,8 @@ public class Flag extends drawInterface {
             }
         }
         if (heldPlayer != null) {
-            x = heldPlayer.x + xMargin;
-            y = heldPlayer.y + yMargin;
+            x = heldPlayer.x - xMargin;
+            y = heldPlayer.y - yMargin;
             for (int i = 0 ; i < d.map.turrets.size() ; i++) {
                 Turret t = d.map.turrets.get(i);
                 if (Math.sqrt((t.x-x)*(t.x-x)+(t.y-y)*(t.y-y)) <= t.shootRadius && t.playerNum == heldPlayer.num) {

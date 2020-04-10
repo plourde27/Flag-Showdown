@@ -8,7 +8,8 @@ import java.io.*;
 import java.lang.Math.*;
 
 public class Player extends drawInterface {
-    int x, y, ang;
+    int x, y;
+    double ang;
     int fireRate;
     int bulletSpeed;
     final int SPEED = 6;
@@ -17,10 +18,13 @@ public class Player extends drawInterface {
     int points = 0;
     int[] c;
     int num;
+    int ox, oy;
     
     public Player(int xx, int yy, int nnum) {
         x = xx;
         y = yy;
+        ox = x;
+        oy = y;
         num = nnum;
         ang = -90;
         fireRate = 10;
@@ -34,7 +38,6 @@ public class Player extends drawInterface {
     }
     
     public void update(Keyboard kb, Display d) {
-        System.out.println(x + " " + y);
         timeout--;
         for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {
             int xx = d.map.bonusPoints.get(i).x;
@@ -47,11 +50,22 @@ public class Player extends drawInterface {
     }
     
     public void shoot(Display d) {
-        d.map.bullets.add(new Bullet(x, y, ang, bulletSpeed, c));
+        d.map.bullets.add(new Bullet(x, y, (int)ang, bulletSpeed, c));
     }
     
     public void display(Graphics g, Keyboard kb, int tx, int ty, Display d) {
         draw(g, tx, ty);
         update(kb, d);
+    }
+    
+    public void die(Display d) {
+        x = ox;
+        y = oy;
+        for (int i = 0 ; i < d.map.flags.size() ; i++) {
+            Flag f = d.map.flags.get(i);
+            if (f.heldPlayer == this) {
+                f.heldPlayer = null;
+            }
+        }
     }
 }

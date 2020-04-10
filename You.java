@@ -14,7 +14,7 @@ public class You extends Player {
     
     public void update(Keyboard kb, Display d) {
         super.update(kb, d);
-        ang = (int) (Math.atan((d.mm.y - 360.0) / (d.mm.x - 540.0)) * (180.0 / Math.PI));
+        ang = (Math.atan((d.mm.y - 360.0) / (d.mm.x - 540.0)) * (180.0 / Math.PI));
         if (d.mm.x <= 540) {
             ang += 180;
         }

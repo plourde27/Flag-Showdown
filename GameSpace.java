@@ -110,16 +110,20 @@ public class GameSpace extends drawInterface {
     
     public void drawMap(Graphics g, int tx, int ty, Display d, Keyboard kb) {
         for (int i = 0 ; i < bonusPoints.size() ; i++) {
-            //System.out.println(bonusPoints.get(i).x + " " + bonusPoints.get(i).y);
             bonusPoints.get(i).draw(g, tx, ty);
         }
         
         for (int i = 0 ; i < bullets.size() ; i++) {
-            bullets.get(i).display(g, tx, ty);
+            bullets.get(i).display(g, tx, ty, d);
+        }
+        
+        for (int i = bullets.size() - 1 ; i >= 0 ; i--) {
+            if (bullets.get(i).dead) {
+                bullets.remove(i);
+            }
         }
         
         for (int i = 0 ; i < players.size() ; i++) {
-            System.out.println(players.get(i));
             players.get(i).display(g, kb, tx, ty, d);
         }
         

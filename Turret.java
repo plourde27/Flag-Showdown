@@ -42,6 +42,7 @@ public class Turret extends drawInterface {
                     shootAngle += 180;
                 }
                 shoot(shootAngle, d);
+                System.out.println("shoot!");
                 timeout = fireRate;
                 break;
             }
