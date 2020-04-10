@@ -12,15 +12,16 @@ public class GameSpace extends drawInterface {
     ArrayList<BonusPoint> bonusPoints;
     ArrayList<Bullet> bullets;
     final int SIZE = 5000;
-    final int CENTER_RADIUS = 400;
-    final int MIN_POINTS = 20;
-    final int MAX_POINTS = 30;
-    final int CLOSE_DIST = 20;
-    final int PLAYER_DIST = 1000;
+    final int CENTER_RADIUS = 600;
+    final int MIN_POINTS = 50;
+    final int MAX_POINTS = 60;
+    final int CLOSE_DIST = 40;
+    final int PLAYER_DIST = 2000;
     final int PLAYER_COUNT = 12;
     ArrayList<Player> players;
     ArrayList<Turret> turrets;
     ArrayList<Flag> flags;
+    ArrayList<Wall> walls;
     
     public GameSpace() {
         bonusPoints = new ArrayList<BonusPoint>();
@@ -28,6 +29,7 @@ public class GameSpace extends drawInterface {
         players = new ArrayList<Player>();
         turrets = new ArrayList<Turret>();
         flags = new ArrayList<Flag>();
+        walls = new ArrayList<Wall>();
         
         int num = (int) (Math.random() * (MAX_POINTS - MIN_POINTS) + MIN_POINTS);
         
@@ -104,6 +106,7 @@ public class GameSpace extends drawInterface {
             turrets.add(t);
             Flag f = new Flag((int)(SIZE/2 + (PLAYER_DIST+230) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+230) * Math.sin(ang * (Math.PI/180.0))), i, pp.c, t);
             flags.add(f);
+            Wall w = new Wall(t.x, t.y, 120, 240, 250);
         }
         System.out.println(players.size());
     }

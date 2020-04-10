@@ -21,9 +21,9 @@ public class Turret extends drawInterface {
     public Turret(int[] ccolor, int xx, int yy, int num, int aang) {
         playerNum = num;
         color = ccolor;
-        fireRate = 25;
-        bulletSpeed = 15;
-        shootRadius = 120;
+        fireRate = 40;
+        bulletSpeed = 9;
+        shootRadius = 600;
         timeout = 0;
         x = xx;
         y = yy;
