@@ -8,8 +8,8 @@ import java.io.*;
 import java.lang.Math.*;
     
 public class You extends Player {
-    public You(int xx, int yy) {
-        super(xx, yy);
+    public You(int xx, int yy, int nnum) {
+        super(xx, yy, nnum);
     }
     
     public void update(Keyboard kb, Display d) {

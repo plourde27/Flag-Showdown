@@ -16,10 +16,12 @@ public class Player extends drawInterface {
     int timeout = 0;
     int points = 0;
     int[] c;
+    int num;
     
-    public Player(int xx, int yy) {
+    public Player(int xx, int yy, int nnum) {
         x = xx;
         y = yy;
+        num = nnum;
         ang = -90;
         fireRate = 10;
         bulletSpeed = 20;

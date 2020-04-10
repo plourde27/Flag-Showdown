@@ -20,12 +20,14 @@ public class GameSpace extends drawInterface {
     final int PLAYER_COUNT = 12;
     ArrayList<Player> players;
     ArrayList<Turret> turrets;
+    ArrayList<Flag> flags;
     
     public GameSpace() {
         bonusPoints = new ArrayList<BonusPoint>();
         bullets = new ArrayList<Bullet>();
         players = new ArrayList<Player>();
         turrets = new ArrayList<Turret>();
+        flags = new ArrayList<Flag>();
         
         int num = (int) (Math.random() * (MAX_POINTS - MIN_POINTS) + MIN_POINTS);
         
@@ -89,17 +91,19 @@ public class GameSpace extends drawInterface {
             int ang = (int) (i * (360.0 / PLAYER_COUNT));
             Player pp;
             if (i > 0) {
-                CPUPlayer p = new CPUPlayer((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))));
+                CPUPlayer p = new CPUPlayer((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))), i);
                 pp = (Player) p;
                 players.add(pp);
             }
             else {
-                You p = new You((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))));
+                You p = new You((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))), i);
                 pp = (Player) p;
                 players.add(pp);
             }
-            Turret t = new Turret(pp.c, (int)(SIZE/2 + (PLAYER_DIST+200) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+200) * Math.sin(ang * (Math.PI/180.0))));
+            Turret t = new Turret(pp.c, (int)(SIZE/2 + (PLAYER_DIST+200) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+200) * Math.sin(ang * (Math.PI/180.0))), i, ang);
             turrets.add(t);
+            Flag f = new Flag((int)(SIZE/2 + (PLAYER_DIST+230) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+230) * Math.sin(ang * (Math.PI/180.0))), i, pp.c, t);
+            flags.add(f);
         }
         System.out.println(players.size());
     }
@@ -122,6 +126,9 @@ public class GameSpace extends drawInterface {
         for (int i = 0 ; i < turrets.size() ; i++) {
             turrets.get(i).display(g, d, tx, ty);
         }
-            
+        
+        for (int i = 0 ; i < flags.size() ; i++) {
+            flags.get(i).display(g, tx, ty, d);
+        }
     }
 }

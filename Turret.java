@@ -16,8 +16,10 @@ public class Turret extends drawInterface {
     int shootRadius;
     int x, y;
     int timeout;
+    int ang;
     
-    public Turret(int[] ccolor, int xx, int yy) {
+    public Turret(int[] ccolor, int xx, int yy, int num, int aang) {
+        playerNum = num;
         color = ccolor;
         fireRate = 25;
         bulletSpeed = 15;
@@ -25,13 +27,20 @@ public class Turret extends drawInterface {
         timeout = 0;
         x = xx;
         y = yy;
+        ang = aang;
     }
     
     public void update(Display d) {
         for (int i = 0 ; i < d.map.players.size() ; i++) {
+            if (d.map.players.get(i).num == playerNum) {
+                continue;
+            }
             Player p = d.map.players.get(i);
             if (Math.sqrt((p.x-x)*(p.x-x) + (p.y-y)*(p.y-y)) <= shootRadius && timeout <= 0) {
                 int shootAngle = (int) (Math.atan((y - p.y)/((double)(x - p.x)))*(180/Math.PI));
+                if (p.x < x) {
+                    shootAngle += 180;
+                }
                 shoot(shootAngle, d);
                 timeout = fireRate;
                 break;

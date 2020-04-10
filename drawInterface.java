@@ -95,19 +95,17 @@ public class drawInterface extends JComponent {
         g.drawLine(x1, y1, x2, y2);
     }
     
-    public void vertex(int x, int y, int tx, int ty) {
-        int x1 = transform(x, y, tx, ty)[0];
-        int y1 = transform(x, y, tx, ty)[1];
-        xs.add(x1);
-        ys.add(y1);
+    public void vertex(int x, int y) {
+        xs.add(x);
+        ys.add(y);
     }
     
-    public void endShape(Graphics g) {
+    public void endShape(Graphics g, int tx, int ty) {
         int[] x = new int[xs.size()];
         int[] y = new int[ys.size()];
         for (int i = 0 ; i < xs.size() ; i++) {
-            x[i] = xs.get(i);
-            y[i] = ys.get(i);
+            x[i] = transform(xs.get(i), ys.get(i), tx, ty)[0];
+            y[i] = transform(xs.get(i), ys.get(i), tx, ty)[1];
         }
         g.fillPolygon(new Polygon(x, y, xs.size()));
         xs = new ArrayList<Integer>();
