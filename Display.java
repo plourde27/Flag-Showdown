@@ -56,8 +56,6 @@ public class Display extends drawInterface {
         
         map.drawMap(g, tx, ty, this, kb);
         
-        //System.out.println("hello!");
-        //System.out.println(player.x + " " + player.y);
         
         
         
