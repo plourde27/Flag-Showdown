@@ -21,12 +21,13 @@ public class Wall extends drawInterface {
     }
     
     public void draw(Graphics g, int tx, int ty) {
+        System.out.println(centerX + " " + centerY);
         fill(125, 60, 0, g);
         for (int i = ang1 ; i <= ang2 ; i++) {
-            vertex(centerX + cos(i) * (dst - 4), centerY + sin(i) * (dst - 4));
+            vertex((int) (centerX + Math.cos(i) * (dist - 4)), (int) (centerY + Math.sin(i) * (dist - 4)));
         }
         for (int i = ang2 ; i >= ang1 ; i--) {
-            vertex(centerX + cos(i) * (dst + 4), centerY + sin(i) * (dst + 4));
+            vertex((int) (centerX + Math.cos(i) * (dist + 4)), (int) (centerY + Math.sin(i) * (dist + 4)));
         }
         endShape(g, tx, ty);
     }

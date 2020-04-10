@@ -107,6 +107,7 @@ public class GameSpace extends drawInterface {
             Flag f = new Flag((int)(SIZE/2 + (PLAYER_DIST+230) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+230) * Math.sin(ang * (Math.PI/180.0))), i, pp.c, t);
             flags.add(f);
             Wall w = new Wall(t.x, t.y, 120, 240, 250);
+            walls.add(w);
         }
         System.out.println(players.size());
     }
@@ -136,6 +137,10 @@ public class GameSpace extends drawInterface {
         
         for (int i = 0 ; i < flags.size() ; i++) {
             flags.get(i).display(g, tx, ty, d);
+        }
+        
+        for (int i = 0 ; i < walls.size(); i ++) {
+            walls.get(i).display(g, tx, ty, d);
         }
     }
 }
