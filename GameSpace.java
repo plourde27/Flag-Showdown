@@ -109,7 +109,6 @@ public class GameSpace extends drawInterface {
             Wall w = new Wall(t.x, t.y, 120, 240, 250);
             walls.add(w);
         }
-        System.out.println(players.size());
     }
     
     public void drawMap(Graphics g, int tx, int ty, Display d, Keyboard kb) {

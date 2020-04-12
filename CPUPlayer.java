@@ -12,7 +12,7 @@ public class CPUPlayer extends Player {
         super(xx, yy, nnum);
     }
     
-    public void update(Keyboard kb, Display d) {
+    public void move(Keyboard kb, Display d) {
         
     }
     

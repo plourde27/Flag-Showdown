@@ -19,6 +19,7 @@ public class Player extends drawInterface {
     int[] c;
     int num;
     int ox, oy;
+    int prevx, prevy;
     
     public Player(int xx, int yy, int nnum) {
         x = xx;
@@ -47,6 +48,31 @@ public class Player extends drawInterface {
                 break;
             }
         }
+        prevx = x;
+        prevy = y;
+        move(kb, d);
+        for (int i = 0 ; i < d.map.walls.size() ; i++) {
+            int xx = d.map.walls.get(i).centerX;
+            int yy = d.map.walls.get(i).centerY;
+            if (x == xx) {
+                x = prevx;
+                y = prevy;
+                continue;
+            }
+            int ang = (int) (Math.atan((y-yy)/(x-xx)) * (180.0 / Math.PI));
+            if (x < xx) {
+                ang += 180;
+            }
+            if (Math.sqrt((x-xx)*(x-xx) + (y-yy)*(y-yy)) >= d.map.walls.get(i).dist - 18 && Math.sqrt((x-xx)*(x-xx) + (y-yy)*(y-yy)) <= d.map.walls.get(i).dist + 18 && ang >= d.map.walls.get(i).ang1 - 1 && ang <= d.map.walls.get(i).ang2 + 1) {
+                System.out.println(x + " " + y + " " + prevx + " " + y);
+                x = prevx;
+                y = prevy;
+            }
+        }
+    }
+    
+    public void move(Keyboard kb, Display d) {
+        
     }
     
     public void shoot(Display d) {

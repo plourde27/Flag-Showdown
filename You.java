@@ -12,8 +12,7 @@ public class You extends Player {
         super(xx, yy, nnum);
     }
     
-    public void update(Keyboard kb, Display d) {
-        super.update(kb, d);
+    public void move(Keyboard kb, Display d) {
         ang = (Math.atan((d.mm.y - 360.0) / (d.mm.x - 540.0)) * (180.0 / Math.PI));
         if (d.mm.x <= 540) {
             ang += 180;
@@ -27,6 +26,10 @@ public class You extends Player {
             shoot(d);
             timeout = fireRate;
         }
+    }
+    
+    public void update(Keyboard kb, Display d) {
+        super.update(kb, d);
     }
     
     public void display(Graphics g, Keyboard kb, int tx, int ty, Display d) {
