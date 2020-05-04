@@ -8,26 +8,28 @@ import java.io.*;
 import java.lang.Math.*;
 
 public class Wall extends drawInterface {
-    int centerX, centerY;
-    int dist;
-    int ang1;
-    int ang2;
-    public Wall(int x, int y, int a1, int a2, int dst) {
-        ang1 = a1;
-        ang2 = a2;
-        centerX = x;
-        centerY = y;
-        dist = dst;
+    int x1, x2, y1, y2;
+    final int FAC = 10;
+    public Wall(int xx1, int yy1, int xx2, int yy2) {
+        x1 = xx1;
+        x2 = xx2;
+        y1 = yy1;
+        y2 = yy2;
     }
     
     public void draw(Graphics g, int tx, int ty) {
         fill(125, 60, 0, g);
-        for (int i = ang1 ; i <= ang2 ; i++) {
-            vertex((int) (centerX + Math.cos(i * (Math.PI / 180.0)) * (dist - 4)), (int) (centerY + Math.sin(i * (Math.PI / 180.0)) * (dist - 4)));
+        int ang = (int) (Math.atan(((double)(y2 - y1)) / (x2 - x1)) * (180.0 / Math.PI));
+        if (x1 < x2) {
+            ang += 180;
         }
-        for (int i = ang2 ; i >= ang1 ; i--) {
-            vertex((int) (centerX + Math.cos(i * (Math.PI / 180.0)) * (dist + 4)), (int) (centerY + Math.sin(i * (Math.PI / 180.0)) * (dist + 4)));
-        }
+        
+        vertex((int) (x1 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        vertex((int) (x2 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y2 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        vertex((int) (x2 + Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y2 + Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        vertex((int) (x1 + Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 + Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        vertex((int) (x1 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+
         endShape(g, tx, ty);
     }
     

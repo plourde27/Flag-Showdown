@@ -106,7 +106,8 @@ public class GameSpace extends drawInterface {
             turrets.add(t);
             Flag f = new Flag((int)(SIZE/2 + (PLAYER_DIST+230) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+230) * Math.sin(ang * (Math.PI/180.0))), i, pp.c, t);
             flags.add(f);
-            Wall w = new Wall(t.x, t.y, 120, 240, 250);
+            
+            Wall w = new Wall(t.x - 100, t.y, t.x, t.y + 100);
             walls.add(w);
         }
     }

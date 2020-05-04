@@ -52,19 +52,13 @@ public class Player extends drawInterface {
         prevy = y;
         move(kb, d);
         for (int i = 0 ; i < d.map.walls.size() ; i++) {
-            int xx = d.map.walls.get(i).centerX;
-            int yy = d.map.walls.get(i).centerY;
-            if (x == xx) {
-                x = prevx;
-                y = prevy;
-                continue;
-            }
-            int ang = (int) (Math.atan((y-yy)/(x-xx)) * (180.0 / Math.PI));
-            if (x < xx) {
-                ang += 180;
-            }
-            if (Math.sqrt((x-xx)*(x-xx) + (y-yy)*(y-yy)) >= d.map.walls.get(i).dist - 18 && Math.sqrt((x-xx)*(x-xx) + (y-yy)*(y-yy)) <= d.map.walls.get(i).dist + 18 && ang >= d.map.walls.get(i).ang1 - 1 && ang <= d.map.walls.get(i).ang2 + 1) {
-                System.out.println(x + " " + y + " " + prevx + " " + y);
+            int x1 = d.map.walls.get(i).x1;
+            int x2 = d.map.walls.get(i).x2;
+            int y1 = d.map.walls.get(i).y1;
+            int y2 = d.map.walls.get(i).y2;
+            double error = Math.abs(Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)) - (Math.sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1)) + Math.sqrt((x-x2)*(x-x2)+(y-y2)*(y-y2))));
+            
+            if (error <= 10) {
                 x = prevx;
                 y = prevy;
             }
