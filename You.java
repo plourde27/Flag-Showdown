@@ -28,7 +28,7 @@ public class You extends Player {
         }
     }
     
-    public void update(Keyboard kb, Display d) {
+    public void update(Keyboard kb, Display d, Graphics g, int tx, int ty) {
         super.update(kb, d);
     }
     

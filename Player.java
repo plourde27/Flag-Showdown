@@ -36,6 +36,8 @@ public class Player extends drawInterface {
     public void draw(Graphics g, int tx, int ty) {
         fill(c[0], c[1], c[2], g);
         ellipse(x, y, 30, 30, g, tx, ty);
+        
+        
     }
     
     public void update(Keyboard kb, Display d) {
@@ -52,17 +54,36 @@ public class Player extends drawInterface {
         prevy = y;
         move(kb, d);
         for (int i = 0 ; i < d.map.walls.size() ; i++) {
-            int x1 = d.map.walls.get(i).x1;
-            int x2 = d.map.walls.get(i).x2;
-            int y1 = d.map.walls.get(i).y1;
-            int y2 = d.map.walls.get(i).y2;
-            double error = Math.abs(Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)) - (Math.sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1)) + Math.sqrt((x-x2)*(x-x2)+(y-y2)*(y-y2))));
+            Wall wl = d.map.walls.get(i);
+            int x1 = wl.x1;
+            int x2 = wl.x2;
+            int y1 = wl.y1;
+            int y2 = wl.y2;
             
-            if (error <= 10) {
+            boolean intersect = false;
+            for (int j = 0 ; j < wl.coords.size() ; j += 2) {
+                if (circleIntersectsLine(x, y, 30, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()))) {
+                    intersect = true;
+                }
+            }
+            
+            if (intersect) {
                 x = prevx;
                 y = prevy;
+                break;
             }
         }
+    }
+    
+    public boolean circleIntersectsLine(int x, int y, int r, int x1, int y1, int x2, int y2) {
+        
+        double m1 = (y2 - y1) / ((double)(x2 - x1));
+        double b1 = y1 - m1 * x1;
+        double m2 = -1.0 / m1;
+        double b2 = y - m2 * x;
+        double ix = (b2 - b1) / (m1 - m2);
+        double iy = ix * m2 + b2;
+        return (Math.sqrt((ix-x)*(ix-x)+(iy-y)*(iy-y)) <= r / 2 && ix >= Math.min(x1, x2) && ix <= Math.max(x1, x2) && iy >= Math.min(y1, y2) && iy <= Math.max(y1, y2));
     }
     
     public void move(Keyboard kb, Display d) {
