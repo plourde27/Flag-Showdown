@@ -118,6 +118,10 @@ public class GameSpace extends drawInterface {
             bonusPoints.get(i).draw(g, tx, ty);
         }
         
+         for (int i = 0 ; i < walls.size(); i ++) {
+            walls.get(i).display(g, tx, ty, d);
+        }
+        
         for (int i = 0 ; i < bullets.size() ; i++) {
             bullets.get(i).display(g, tx, ty, d);
         }
@@ -140,8 +144,6 @@ public class GameSpace extends drawInterface {
             flags.get(i).display(g, tx, ty, d);
         }
         
-        for (int i = 0 ; i < walls.size(); i ++) {
-            walls.get(i).display(g, tx, ty, d);
-        }
+       
     }
 }

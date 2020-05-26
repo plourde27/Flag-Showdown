@@ -8,12 +8,13 @@ import java.io.*;
 import java.lang.Math.*;
 
 public class Bullet extends drawInterface {
-    int x, y, ang, speed, ox, oy;
+    double x, y, ox, oy, px, py;
+    int ang, speed;
     boolean dead;
     int[] c;
     int SHOOT_DIST = 500;
     
-    public Bullet(int xx, int yy, int aang, int sspeed, int[] cc) {
+    public Bullet(double xx, double yy, int aang, int sspeed, int[] cc) {
         x = xx;
         y = yy;
         ox = x;
@@ -26,12 +27,15 @@ public class Bullet extends drawInterface {
     
     public void draw(Graphics g, int tx, int ty) {
         fill(c[0], c[1], c[2], g);
-        ellipse(x, y, 5, 5, g, tx, ty);
+        ellipse((int)x, (int)y, 5, 5, g, tx, ty);
     }
     
     public void update(Display d) {
-        x += (int) (Math.cos(ang * (Math.PI / 180.0)) * speed);
-        y += (int) (Math.sin(ang * (Math.PI / 180.0)) * speed);
+        px = x;
+        py = y;
+        x += (Math.cos(ang * (Math.PI / 180.0)) * speed);
+        y += (Math.sin(ang * (Math.PI / 180.0)) * speed);
+        
         if (Math.sqrt((x-ox)*(x-ox)+(y-oy)*(y-oy)) >= SHOOT_DIST) {
             dead = true;
         }
@@ -50,6 +54,29 @@ public class Bullet extends drawInterface {
                 break;
             }
         }
+        for (int i = 0 ; i < d.map.walls.size() ; i++) {
+            Wall wl = d.map.walls.get(i);
+            for (int j = 0 ; j < wl.coords.size() ; j += 2) {
+                if (circleIntersectsLine((int)x, (int)y, 5, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()))[0] != 0) {
+                    dead = true;
+                    break;
+                }
+            }
+            if (linesIntersect((int)px, (int)py, (int)x, (int)y, wl.x1, wl.y1, wl.x2, wl.y2)) {
+                dead = true;
+                break;
+            }
+        }
+    }
+    
+    public boolean linesIntersect(int sx1, int sy1, int ex1, int ey1, int sx2, int sy2, int ex2, int ey2) {
+        double m1 = ((ey1 - sy1) / ((double)ex1 - sx1));
+        double m2 = ((ey2 - sy2) / ((double)((double) (ex2 - sx2) + 0.00001)));
+        double b1 = sy1 - m1 * sx1;
+        double b2 = sy2 - m2 * sx2;
+        double ex = ((b2 - b1) / ((double) (m1 - m2)));
+        double ey = m1 * ex + b1;
+        return (ex >= Math.min(sx1,ex1) && ex <= Math.max(sx1,ex1) && ex >= Math.min(sx2,ex2) && ex <= Math.max(sx2,ex2) && ey >= Math.min(sy1,ey1) && ey <= Math.max(sy1,ey1) && ey >= Math.min(sy2,ey2) && ey <= Math.max(sy2,ey2));
     }
     
     public void display(Graphics g, int tx, int ty, Display d) {
