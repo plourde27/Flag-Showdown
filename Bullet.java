@@ -57,7 +57,7 @@ public class Bullet extends drawInterface {
         for (int i = 0 ; i < d.map.walls.size() ; i++) {
             Wall wl = d.map.walls.get(i);
             for (int j = 0 ; j < wl.coords.size() ; j += 2) {
-                if (circleIntersectsLine((int)x, (int)y, 5, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()))[0] != 0) {
+                if (circleIntersectsLine((int)x, (int)y, 5, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()))[0] != -1) {
                     dead = true;
                     break;
                 }

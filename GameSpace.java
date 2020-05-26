@@ -91,6 +91,7 @@ public class GameSpace extends drawInterface {
         
         for (int i = 0 ; i < PLAYER_COUNT ; i++) {
             int ang = (int) (i * (360.0 / PLAYER_COUNT));
+            double cang = ang * (Math.PI / 180.0);
             Player pp;
             if (i > 0) {
                 CPUPlayer p = new CPUPlayer((int)(SIZE/2 + PLAYER_DIST * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + PLAYER_DIST * Math.sin(ang * (Math.PI/180.0))), i);
@@ -108,8 +109,8 @@ public class GameSpace extends drawInterface {
             flags.add(f);
             
             //Wall w = new Wall(t.x - 100, t.y, t.x, t.y + 100, i);
-            walls.add(new Wall(t.x - 100, t.y, t.x, t.y + 100, i));
-            walls.add(new Wall(t.x + 100, t.y, t.x, t.y - 100, i));
+            walls.add(new Wall(i, t.x, t.y, ang, 100, 80, -100, 80));
+            walls.add(new Wall(i, t.x, t.y, ang, 100, -80, -100, -80));
         }
     }
     

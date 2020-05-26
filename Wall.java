@@ -38,6 +38,31 @@ public class Wall extends drawInterface {
         
     }
     
+    public Wall(int n, int tx, int ty, int a, int a1, int b1, int a2, int b2) {
+        num = n;
+        x1 = (int) (tx + cos(a) * a1 + cos(a + 90) * b1) + 2;
+        y1 = (int) (ty + sin(a) * a1 + sin(a + 90) * b1) + 4;
+        x2 = (int) (tx + cos(a) * a2 + cos(a + 90) * b2) + 6;
+        y2 = (int) (ty + sin(a) * a2 + sin(a + 90) * b2) + 8;
+        
+        coords = new ArrayList<Integer>();
+        
+        int ang = (int) (Math.atan(((double)(y2 - y1)) / (x2 - x1)) * (180.0 / Math.PI));
+        if (x1 < x2) {
+            ang += 180;
+        }
+        
+        coords.add((int) (x1 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (y1 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (x2 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (y2 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (x2 + Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (y2 + Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (x1 + Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC));
+        coords.add((int) (y1 + Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        
+    }
+    
     public void draw(Graphics g, int tx, int ty) {
         fill(125, 60, 0, g);
         int ang = (int) (Math.atan(((double)(y2 - y1)) / (x2 - x1)) * (180.0 / Math.PI));
@@ -55,6 +80,10 @@ public class Wall extends drawInterface {
        
         
         endShape(g, tx, ty);
+    }
+    
+    public static int ri(int n) {
+        return (int) (Math.random() * n);
     }
     
     public void update(Display d) {

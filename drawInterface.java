@@ -127,7 +127,7 @@ public class drawInterface extends JComponent {
         double ix = (b2 - b1) / (m1 - m2);
         double iy = ix * m2 + b2;
         if (!(Math.sqrt((ix-x)*(ix-x)+(iy-y)*(iy-y)) <= r / 2 && ix >= Math.min(x1, x2) && ix <= Math.max(x1, x2) && iy >= Math.min(y1, y2) && iy <= Math.max(y1, y2))) {
-            return new int[]{0, 0};
+            return new int[]{-1, -1};
         }
         else {
             int ang = (int) (Math.atan(((double)(iy - y)) / (ix - x)) * (180.0 / Math.PI));
@@ -137,5 +137,13 @@ public class drawInterface extends JComponent {
             int ds = r / 2;
             return new int[]{(int)ix + (int) (Math.cos(ang * (Math.PI / 180.0)) * (ds)), (int)iy + (int) (Math.sin(ang * (Math.PI / 180.0)) * (ds))};
         }
+    }
+    
+    public double cos(int ang) {
+        return Math.cos(ang * (Math.PI / 180.0));
+    }
+    
+    public double sin(int ang) {
+        return Math.sin(ang * (Math.PI / 180.0));
     }
 }

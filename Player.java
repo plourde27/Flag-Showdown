@@ -62,7 +62,8 @@ public class Player extends drawInterface {
             
             for (int j = 0 ; j < wl.coords.size() ; j += 2) {
                 int[] ans = circleIntersectsLine(x, y, 30, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()));
-                if (ans[0] != 0) {
+                
+                if (ans[0] != -1) {
                     x = ans[0];
                     y = ans[1];
                     break;
