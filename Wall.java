@@ -9,7 +9,7 @@ import java.lang.Math.*;
 
 public class Wall extends drawInterface {
     int x1, x2, y1, y2;
-    final int FAC = 40;
+    final int FAC = 10;
     ArrayList<Integer> coords;
     int num;
     
@@ -45,18 +45,13 @@ public class Wall extends drawInterface {
             ang += 180;
         }
         
-        /*vertex((int) (x1 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
+        vertex((int) (x1 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
         vertex((int) (x2 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y2 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
         vertex((int) (x2 + Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y2 + Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
         vertex((int) (x1 + Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 + Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
         vertex((int) (x1 - Math.cos((ang + 90) * (Math.PI / 180.0)) * FAC), (int) (y1 - Math.sin((ang + 90) * (Math.PI / 180.0)) * FAC));
         
-        */
-       for (int j = 0 ; j < coords.size() ; j += 2) {
-            //System.out.println(wl.coords.get(j) + " " + wl.coords.get(j + 1) + " " + wl.coords.get((j + 2)%wl.coords.size()) + " " + wl.coords.get((j + 3)%wl.coords.size()));
-            line(coords.get(j), coords.get(j + 1), coords.get((j + 2)%coords.size()), coords.get((j + 3)%coords.size()), g, tx, ty);
-          
-        }
+        
        
         
         endShape(g, tx, ty);

@@ -60,22 +60,18 @@ public class Player extends drawInterface {
             int y1 = wl.y1;
             int y2 = wl.y2;
             
-            boolean intersect = false;
             for (int j = 0 ; j < wl.coords.size() ; j += 2) {
-                if (circleIntersectsLine(x, y, 30, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()))) {
-                    intersect = true;
+                int[] ans = circleIntersectsLine(x, y, 30, wl.coords.get(j), wl.coords.get(j + 1), wl.coords.get((j + 2)%wl.coords.size()), wl.coords.get((j + 3)%wl.coords.size()));
+                if (ans[0] != 0) {
+                    x = ans[0];
+                    y = ans[1];
+                    break;
                 }
-            }
-            
-            if (intersect) {
-                x = prevx;
-                y = prevy;
-                break;
             }
         }
     }
     
-    public boolean circleIntersectsLine(int x, int y, int r, int x1, int y1, int x2, int y2) {
+    public int[] circleIntersectsLine(int x, int y, int r, int x1, int y1, int x2, int y2) {
         
         double m1 = (y2 - y1) / ((double)(x2 - x1));
         double b1 = y1 - m1 * x1;
@@ -83,7 +79,17 @@ public class Player extends drawInterface {
         double b2 = y - m2 * x;
         double ix = (b2 - b1) / (m1 - m2);
         double iy = ix * m2 + b2;
-        return (Math.sqrt((ix-x)*(ix-x)+(iy-y)*(iy-y)) <= r / 2 && ix >= Math.min(x1, x2) && ix <= Math.max(x1, x2) && iy >= Math.min(y1, y2) && iy <= Math.max(y1, y2));
+        if (!(Math.sqrt((ix-x)*(ix-x)+(iy-y)*(iy-y)) <= r / 2 && ix >= Math.min(x1, x2) && ix <= Math.max(x1, x2) && iy >= Math.min(y1, y2) && iy <= Math.max(y1, y2))) {
+            return new int[]{0, 0};
+        }
+        else {
+            int ang = (int) (Math.atan(((double)(iy - y)) / (ix - x)) * (180.0 / Math.PI));
+            if (x < ix) {
+                ang += 180;
+            }
+            int ds = r / 2;
+            return new int[]{(int)ix + (int) (Math.cos(ang * (Math.PI / 180.0)) * (ds)), (int)iy + (int) (Math.sin(ang * (Math.PI / 180.0)) * (ds))};
+        }
     }
     
     public void move(Keyboard kb, Display d) {

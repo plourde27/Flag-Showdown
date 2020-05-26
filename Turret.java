@@ -62,7 +62,7 @@ public class Turret extends drawInterface {
     }
     
     public void shoot(int ang, Display d) {
-        d.map.bullets.add(new Bullet((int) (x + Math.cos(ang*(180/Math.PI))*16), (int) (y + Math.sin(ang*(180/Math.PI))*16), ang, bulletSpeed, color));
+        d.map.bullets.add(new Bullet((int) (x + Math.cos(ang*(Math.PI / 180))*16), (int) (y + Math.sin(ang*(Math.PI / 180))*16), ang, bulletSpeed, color));
     }
     
     public void upgrade() {
