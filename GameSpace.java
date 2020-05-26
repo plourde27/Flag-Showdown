@@ -105,12 +105,21 @@ public class GameSpace extends drawInterface {
             }
             Turret t = new Turret(pp.c, (int)(SIZE/2 + (PLAYER_DIST+200) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+200) * Math.sin(ang * (Math.PI/180.0))), i, ang);
             turrets.add(t);
-            Flag f = new Flag((int)(SIZE/2 + (PLAYER_DIST+230) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+230) * Math.sin(ang * (Math.PI/180.0))), i, pp.c, t);
+            Flag f = new Flag((int)(SIZE/2 + (PLAYER_DIST+400) * Math.cos(ang * (Math.PI/180.0))), (int)(SIZE/2 + (PLAYER_DIST+400) * Math.sin(ang * (Math.PI/180.0))), i, pp.c, t);
             flags.add(f);
             
             //Wall w = new Wall(t.x - 100, t.y, t.x, t.y + 100, i);
             walls.add(new Wall(i, t.x, t.y, ang, 100, 80, -100, 80));
             walls.add(new Wall(i, t.x, t.y, ang, 100, -80, -100, -80));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, -80, -100, -180));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, -180, 200, -180));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, 80, -100, 180));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, 180, 200, 180));
+            walls.add(new Wall(i, t.x, t.y, ang, -180, -40, -180, -300));
+            walls.add(new Wall(i, t.x, t.y, ang, -180, -300, 300, -300));
+            walls.add(new Wall(i, t.x, t.y, ang, 300, -300, 300, 300));
+            walls.add(new Wall(i, t.x, t.y, ang, -180, 40, -180, 300));
+            walls.add(new Wall(i, t.x, t.y, ang, -180, 300, 300, 300));
         }
     }
     
