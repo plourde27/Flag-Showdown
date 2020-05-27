@@ -41,6 +41,7 @@ public class Player extends drawInterface {
     }
     
     public void update(Keyboard kb, Display d) {
+        
         timeout--;
         for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {
             int xx = d.map.bonusPoints.get(i).x;
