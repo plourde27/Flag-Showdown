@@ -124,6 +124,13 @@ public class GameSpace extends drawInterface {
             for (int j = 520 ; j <= 1700 ; j += 240) {
                 walls.add(new Wall(i, SIZE / 2, SIZE / 2, (int) (ang + (180.0 / PLAYER_COUNT)), j, 0, j + 180, 0));
             }
+            
+        }
+        
+        int inc = 10;
+        int sz = SIZE / 2 + 500;
+        for (int i = 0 ; i < 360 ; i += inc) {
+            walls.add(new Wall((int) (SIZE / 2 + cos(i) * (sz)), (int) (SIZE / 2 + sin(i) * (sz)), (int) (SIZE / 2 + cos(i + inc) * (sz)), (int) (SIZE / 2 + sin(i + inc) * (sz)), 0));
         }
     }
     

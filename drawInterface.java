@@ -77,6 +77,10 @@ public class drawInterface extends JComponent {
         g.setFont(new Font("Avenir", Font.PLAIN, sz));
     }
     
+    public void textSize(int sz, Graphics g, String f) {
+        g.setFont(new Font(f, Font.PLAIN, sz));
+    }
+    
     public void text(String txt, int x, int y, Graphics g, int tx, int ty) {
         x = transform(x, y, tx, ty)[0];
         y = transform(x, y, tx, ty)[1];
