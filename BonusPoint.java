@@ -11,6 +11,8 @@ public class BonusPoint extends drawInterface {
     int points;
     int x, y;
     
+    boolean alive;
+    
     TreeMap<Integer, Color> colors;
     
     public BonusPoint(int value, int xx, int yy) {
@@ -28,19 +30,22 @@ public class BonusPoint extends drawInterface {
         points = value;
         x = xx;
         y = yy;
+        alive = true;
     }
     
     public void draw(Graphics g, int tx, int ty) {
-        fill(colors.get(points), g);
-        ellipse(x, y, 25, 25, g, tx, ty);
-        fill(255, 255, 255, g);
-        if (points < 10) {
-            textSize(19, g);
-            text(Integer.toString(points), x - 6, y + 7, g, tx, ty);
-        }
-        else {
-            textSize(14, g);
-            text(Integer.toString(points), x - 9, y + 6, g, tx, ty);
+        if (alive) {
+            fill(colors.get(points), g);
+            ellipse(x, y, 25, 25, g, tx, ty);
+            fill(255, 255, 255, g);
+            if (points < 10) {
+                textSize(19, g);
+                text(Integer.toString(points), x - 6, y + 7, g, tx, ty);
+            }
+            else {
+                textSize(14, g);
+                text(Integer.toString(points), x - 9, y + 6, g, tx, ty);
+            }
         }
     }
 }

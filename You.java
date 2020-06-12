@@ -12,23 +12,25 @@ public class You extends Player {
         super(xx, yy, nnum);
     }
     
-    public void move(Keyboard kb, Display d) {
+    public double[] move(Keyboard kb, Display d) {
         ang = (Math.atan((d.mm.y - 360.0) / (d.mm.x - 540.0)) * (180.0 / Math.PI));
         if (d.mm.x <= 540) {
             ang += 180;
-        }
-        
-        if (kb.keys[87]) {
-            x += Math.cos(ang * (Math.PI / 180)) * SPEED;
-            y += Math.sin(ang * (Math.PI / 180)) * SPEED;
         }
         if (kb.keys[32] && timeout <= 0) {
             shoot(d);
             timeout = fireRate;
         }
+        
+        if (kb.keys[87]) {
+            return new double[]{Math.cos(ang * (Math.PI / 180)), Math.sin(ang * (Math.PI / 180))};
+        }
+        
+        return new double[]{};
     }
     
     public void update(Keyboard kb, Display d, Graphics g, int tx, int ty) {
+      
         super.update(kb, d);
     }
     

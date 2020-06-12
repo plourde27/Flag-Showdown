@@ -12,9 +12,10 @@ public class Bullet extends drawInterface {
     int ang, speed;
     boolean dead;
     int[] c;
+    int num;
     int SHOOT_DIST = 500;
     
-    public Bullet(double xx, double yy, int aang, int sspeed, int[] cc) {
+    public Bullet(double xx, double yy, int aang, int sspeed, int[] cc, int nm) {
         x = xx;
         y = yy;
         ox = x;
@@ -23,6 +24,7 @@ public class Bullet extends drawInterface {
         speed = sspeed;
         c = cc;
         dead = false;
+        num = nm;
     }
     
     public void draw(Graphics g, int tx, int ty) {
@@ -40,6 +42,9 @@ public class Bullet extends drawInterface {
             dead = true;
         }
         for (int i = 0 ; i < d.map.players.size() ; i++) {
+            if (i == num) {
+                continue;
+            }
             Player p = d.map.players.get(i);
             if (Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y)) <= 15) {
                 p.die(d);

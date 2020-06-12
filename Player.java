@@ -8,11 +8,12 @@ import java.io.*;
 import java.lang.Math.*;
 
 public class Player extends drawInterface {
+    int SIZE = 5000;
     int x, y;
     double ang;
     int fireRate;
     int bulletSpeed;
-    final int SPEED = 6;
+    final int SPEED = 18;
     final int ANGDIST = 4;
     int timeout = 0;
     int points = 0;
@@ -20,6 +21,7 @@ public class Player extends drawInterface {
     int num;
     int ox, oy;
     int prevx, prevy;
+    double[] lock = new double[]{};
     
     public Player(int xx, int yy, int nnum) {
         x = xx;
@@ -44,16 +46,25 @@ public class Player extends drawInterface {
         
         timeout--;
         for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {
+            if (!d.map.bonusPoints.get(i).alive) {
+                continue;
+            }
             int xx = d.map.bonusPoints.get(i).x;
             int yy = d.map.bonusPoints.get(i).y;
             if (Math.sqrt((x-xx)*(x-xx) + (y-yy)*(y-yy)) <= 25) {
-                points += d.map.bonusPoints.remove(i).points;
+                points += d.map.bonusPoints.get(i).points;
+                d.map.bonusPoints.get(i).alive = false;
+                lock = new double[]{};
                 break;
             }
         }
         prevx = x;
         prevy = y;
-        move(kb, d);
+        double[] ps = move(kb, d);
+        if (ps.length > 0) {
+            x += (int) (ps[0] * (SPEED / 3.0));
+            y += (int) (ps[1] * (SPEED / 3.0));
+        }
         for (int i = 0 ; i < d.map.walls.size() ; i++) {
             Wall wl = d.map.walls.get(i);
             int x1 = wl.x1;
@@ -73,12 +84,12 @@ public class Player extends drawInterface {
         }
     }
     
-    public void move(Keyboard kb, Display d) {
-        
+    public double[] move(Keyboard kb, Display d) {
+        return new double[]{};
     }
     
     public void shoot(Display d) {
-        d.map.bullets.add(new Bullet(x, y, (int)ang, bulletSpeed, c));
+        d.map.bullets.add(new Bullet(x, y, (int)ang, bulletSpeed, c, num));
     }
     
     public void display(Graphics g, Keyboard kb, int tx, int ty, Display d) {

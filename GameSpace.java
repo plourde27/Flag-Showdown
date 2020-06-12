@@ -12,7 +12,7 @@ public class GameSpace extends drawInterface {
     ArrayList<BonusPoint> bonusPoints;
     ArrayList<Bullet> bullets;
     final int SIZE = 5000;
-    final int CENTER_RADIUS = 600;
+    final int CENTER_RADIUS = 500;
     final int MIN_POINTS = 50;
     final int MAX_POINTS = 60;
     final int CLOSE_DIST = 40;
