@@ -150,4 +150,12 @@ public class drawInterface extends JComponent {
     public double sin(int ang) {
         return Math.sin(ang * (Math.PI / 180.0));
     }
+    
+    public double cos(double ang) {
+        return Math.cos(ang * (Math.PI / 180.0));
+    }
+    
+    public double sin(double ang) {
+        return Math.sin(ang * (Math.PI / 180.0));
+    }
 }

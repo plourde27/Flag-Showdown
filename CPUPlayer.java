@@ -11,19 +11,36 @@ public class CPUPlayer extends Player {
     int ox, oy;
     double[] bplock = new double[]{};
     int bpind = 0;
+    int mx;
+    boolean left;
     
     public CPUPlayer(int xx, int yy, int nnum) {
         super(xx, yy, nnum);
         ox = x;
         oy = y;
+        left = true;
+        mx = 5;
     }
     
     public double[] move(Keyboard kb, Display d) {
         if (bplock.length > 0 && d.map.bonusPoints.get(bpind).alive) {
             return target((int)bplock[0], (int)bplock[1]);
         }
-        int mni = -1;
-        int mn = 1000000000;
+        
+        if (left) {
+            return getBonusPoints(d);
+        }
+        
+        return new double[]{};
+    }
+    
+    public double[] getBonusPoints(Display d) {
+        if (points >= mx) {
+            left = false;
+        }
+        
+        int mni = 0;
+        int mn = 100000000;
         for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {
             if (!d.map.bonusPoints.get(i).alive) {
                 continue;
@@ -43,8 +60,9 @@ public class CPUPlayer extends Player {
             bpind = i;
             return target(xx, yy);
         }
-        return goToCenter();
         
+        left = false;
+        return new double[]{};
     }
     
     public double[] target(int xx, int yy) {
@@ -54,12 +72,12 @@ public class CPUPlayer extends Player {
             ang += 180;
         }
         int i = bpind;
-        System.out.println(x + " " + y + " " + xx + " " + yy + " " + ang + " " + bpind);
+        //System.out.println(x + " " + y + " " + xx + " " + yy + " " + ang + " " + bpind);
         return new double[]{cos(ang), sin(ang)};
     }
     
     public double[] goToCenter() {
-        if (Math.atan((y-SIZE/2)/((double)(x-SIZE/2+0.01)))-Math.atan((y-oy)/((double)(x-ox+0.01)))<0.4) {
+        if (Math.sqrt((x-SIZE/2)*(x-SIZE/2)+(y-SIZE/2)*(y-SIZE/2)) <= 500 || Math.atan((y-SIZE/2)/((double)(x-SIZE/2+0.01)))-Math.atan((y-oy)/((double)(x-ox+0.01)))<0.4) {
             return target(SIZE / 2, SIZE / 2);
         }
         else {
