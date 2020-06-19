@@ -89,7 +89,7 @@ public class Player extends drawInterface {
     }
     
     public void shoot(Display d) {
-        d.map.bullets.add(new Bullet(x, y, (int)ang, bulletSpeed, c, num));
+        d.map.bullets.add(new Bullet(null, 0, x, y, (int)ang, bulletSpeed, c, num));
     }
     
     public void display(Graphics g, Keyboard kb, int tx, int ty, Display d) {

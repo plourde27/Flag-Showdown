@@ -14,10 +14,16 @@ public class Bullet extends drawInterface {
     int[] c;
     int num;
     int SHOOT_DIST = 500;
+    Player targetPlayer;
+    int mspeed;
     
-    public Bullet(double xx, double yy, int aang, int sspeed, int[] cc, int nm) {
+    public Bullet(Player p, int ms, double xx, double yy, int aang, int sspeed, int[] cc, int nm) {
+        mspeed = ms;
         x = xx;
         y = yy;
+        if (p != null) {
+            targetPlayer = p;
+        }
         ox = x;
         oy = y;
         ang = aang;
@@ -35,8 +41,23 @@ public class Bullet extends drawInterface {
     public void update(Display d) {
         px = x;
         py = y;
-        x += (Math.cos(ang * (Math.PI / 180.0)) * speed);
-        y += (Math.sin(ang * (Math.PI / 180.0)) * speed);
+        if (targetPlayer != null) {
+            int targetAng = (int) (Math.atan((y-targetPlayer.y)/(x-targetPlayer.x))*(180.0/Math.PI));
+            if (targetPlayer.x < x) {
+                targetAng = (targetAng + 180) % 360;
+            }
+            if (Math.abs(ang - targetAng) <= mspeed || Math.abs(ang - targetAng) >= 360 - mspeed) {
+                ang = targetAng;
+            }
+            else if ((ang < targetAng && targetAng - ang > 180) || (targetAng < ang && ang - targetAng <= 180)) {
+                ang = (ang + 360 - mspeed) % 360;
+            }
+            else {
+                ang = (ang + mspeed) % 360;
+            }
+            x += (Math.cos(ang * (Math.PI / 180.0)) * speed);
+            y += (Math.sin(ang * (Math.PI / 180.0)) * speed);
+        }
         
         if (Math.sqrt((x-ox)*(x-ox)+(y-oy)*(y-oy)) >= SHOOT_DIST) {
             dead = true;

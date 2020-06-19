@@ -20,6 +20,7 @@ public class Turret extends drawInterface {
     double finalShoot = 0;
     double targetShoot = 0;
     double moveRate;
+    int homingSpeed;
     
     public Turret(int[] ccolor, int xx, int yy, int num, int aang) {
         playerNum = num;
@@ -33,6 +34,7 @@ public class Turret extends drawInterface {
         ang = aang;
         finalShoot = playerNum * 30;
         moveRate = 3.0;
+        homingSpeed = 1;
     }
     
     public void update(Display d) {
@@ -48,7 +50,7 @@ public class Turret extends drawInterface {
                 }
                 targetShoot = shootAngle;
                 if (timeout <= 0) {
-                    shoot(shootAngle, d);
+                    shoot(d.map.players.get(i), shootAngle, d);
                     timeout = fireRate;
                     break;
                 }
@@ -85,8 +87,8 @@ public class Turret extends drawInterface {
         update(d);
     }
     
-    public void shoot(double ang, Display d) {
-        d.map.bullets.add(new Bullet((int) (x + Math.cos(ang*(Math.PI / 180))*16), (int) (y + Math.sin(ang*(Math.PI / 180))*16), (int)ang, bulletSpeed, color, playerNum));
+    public void shoot(Player p, double ang, Display d) {
+        d.map.bullets.add(new Bullet(p, homingSpeed, (int) (x + Math.cos(ang*(Math.PI / 180))*16), (int) (y + Math.sin(ang*(Math.PI / 180))*16), (int)ang, bulletSpeed, color, playerNum));
     }
     
     public void upgrade(int type) {
@@ -94,10 +96,18 @@ public class Turret extends drawInterface {
             fireRate = (int) (fireRate * (4.0 / 5));
         }
         else if (type == 1) {
-            moveRate = (int) moveRate * 1.3;
+            moveRate = (int) (moveRate * 1.3);
         }
         else if (type == 2) {
             bulletSpeed = (int) (bulletSpeed * 1.25);
+        }
+        else if (type == 3) {
+            if (homingSpeed == 1) {
+                homingSpeed = 2;
+            }
+            else {
+                homingSpeed = (int) (homingSpeed * 1.5);
+            }
         }
     }
     
