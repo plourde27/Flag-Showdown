@@ -55,9 +55,12 @@ public class Bullet extends drawInterface {
             else {
                 ang = (ang + mspeed) % 360;
             }
-            x += (Math.cos(ang * (Math.PI / 180.0)) * speed);
-            y += (Math.sin(ang * (Math.PI / 180.0)) * speed);
         }
+        
+        
+        x += (Math.cos(ang * (Math.PI / 180.0)) * speed);
+        y += (Math.sin(ang * (Math.PI / 180.0)) * speed);
+        
         
         if (Math.sqrt((x-ox)*(x-ox)+(y-oy)*(y-oy)) >= SHOOT_DIST) {
             dead = true;

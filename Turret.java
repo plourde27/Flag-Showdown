@@ -34,7 +34,7 @@ public class Turret extends drawInterface {
         ang = aang;
         finalShoot = playerNum * 30;
         moveRate = 3.0;
-        homingSpeed = 1;
+        homingSpeed = 0;
     }
     
     public void update(Display d) {
@@ -68,7 +68,7 @@ public class Turret extends drawInterface {
         }
     }
     
-    public void draw(Graphics g, int tx, int ty) {
+    public void draw(Display d, Graphics g, int tx, int ty) {
         fill(color[0], color[1], color[2], g);
         rect(x, y, 30, 30, g, tx, ty);
         
@@ -80,10 +80,42 @@ public class Turret extends drawInterface {
         endShape(g, tx, ty);
         fill(color[0], color[1], color[2], 30, g);
         ellipse(x, y, shootRadius*2, shootRadius*2, g, tx, ty);
+        
+        if (playerNum == 0) {
+            Player p = d.map.players.get(0);
+            if (Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y)) <= shootRadius) {
+                fill(200, 200, 200, 150, g);
+                rect(540, 75, 1080, 150, g, 0, 0);
+                fill(0, 0, 0, g);
+                textSize(30, g);
+                text("Upgrade Your Turret", 50, 60, g, 0, 0);
+                textSize(24, g);
+                text("Current Balance: " + p.points + " Bonus Points", 40, 115, g, 0, 0);
+                String[] names = {"Fire Rate", "Turret Speed", "Bullet Speed", "Bullet Homing"};
+                int[] vars = {(int)(100.0/fireRate), (int)moveRate, bulletSpeed, homingSpeed};
+                int[] costs = {8, 2, 6, 10};
+                for (int i = 0 ; i < 4 ; i++) {
+                    fill(0, 0, 0, g);
+                    textSize(18, g);
+                    text(names[i], 460 + i * 150, 30, g, 0, 0);
+                    textSize(14, g);
+                    text("Current Value: " + vars[i], 460 + i * 150, 55, g, 0, 0);
+                    text("Cost: " + costs[i] + " Points", 460 + i * 150, 85, g, 0, 0);
+                    fill(240, 240, 240, 150, g);
+                    rect(500 + i * 150, 115, 80, 25, g, 0, 0);
+                    fill(0, 0, 0, g);
+                    textSize(16, g);
+                    text("Upgrade", 467 + i * 150, 121, g, 0, 0);
+                    if (d.mouse.clicked && d.mouse.x >= 460+i*150 && d.mouse.x <= 540+i*150 && d.mouse.y >= 102.5 && d.mouse.y <= 127.5) {
+                        upgrade(i);
+                    }
+                }
+            }
+        }
     }
     
     public void display(Graphics g, Display d, int tx, int ty) {
-        draw(g, tx, ty);
+        draw(d, g, tx, ty);
         update(d);
     }
     
@@ -96,18 +128,15 @@ public class Turret extends drawInterface {
             fireRate = (int) (fireRate * (4.0 / 5));
         }
         else if (type == 1) {
-            moveRate = (int) (moveRate * 1.3);
+            moveRate = Math.max(moveRate+1, (int) (moveRate * 1.3));
         }
         else if (type == 2) {
-            bulletSpeed = (int) (bulletSpeed * 1.25);
+            bulletSpeed = Math.max(bulletSpeed+1,(int) (bulletSpeed * 1.25));
         }
         else if (type == 3) {
-            if (homingSpeed == 1) {
-                homingSpeed = 2;
-            }
-            else {
-                homingSpeed = (int) (homingSpeed * 1.5);
-            }
+            
+            homingSpeed = Math.max(homingSpeed+1, (int) (homingSpeed * 1.5));
+            
         }
     }
     

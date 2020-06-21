@@ -52,6 +52,7 @@ public class drawInterface extends JComponent {
         int oy = y;
         x = transform(ox, oy, tx, ty)[0];
         y = transform(ox, oy, tx, ty)[1];
+        System.out.println(x - w/2);
         g.fillRect(x - w / 2, y - h / 2, (int) (w * scl), (int) (h * scl));
     }
     
