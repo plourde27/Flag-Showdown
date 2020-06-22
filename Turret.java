@@ -142,15 +142,13 @@ public class Turret extends drawInterface {
             fireRate = (int) (fireRate * (4.0 / 5));
         }
         else if (type == 1) {
-            moveRate = Math.max(moveRate+1, (int) (moveRate * 1.3));
+            moveRate = Math.max(moveRate+1, (int) (moveRate * 1.22));
         }
         else if (type == 2) {
-            bulletSpeed = Math.max(bulletSpeed+1,(int) (bulletSpeed * 1.25));
+            bulletSpeed = Math.max(bulletSpeed+1,(int) (bulletSpeed * 1.15));
         }
         else if (type == 3) {
-            
-            homingSpeed = Math.max(homingSpeed+1, (int) (homingSpeed * 1.5));
-            
+            homingSpeed = Math.max(homingSpeed+1, (int) (homingSpeed * 1.1));
         }
     }
     

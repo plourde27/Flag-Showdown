@@ -25,8 +25,8 @@ public class BonusPoint extends drawInterface {
         colors.put(6, new Color(200, 100, 0));
         colors.put(8, new Color(0, 100, 200));
         colors.put(10, new Color(120, 120, 120));
-        colors.put(20, new Color(0, 200, 100));
-        colors.put(50, new Color(100, 200, 0));
+        colors.put(12, new Color(0, 200, 100));
+        colors.put(15, new Color(100, 200, 0));
         points = value;
         x = xx;
         y = yy;

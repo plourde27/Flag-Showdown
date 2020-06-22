@@ -41,20 +41,20 @@ public class GameSpace extends drawInterface {
             int val = 0;
             int dst;
             double c;
-            if (r <= 0.9) {
+            if (r < 0.9) {
                 val = (int) (r / 0.18 + 1);
                 c = 1;
             }
             else if (r <= 0.99) {
-                val = 6 + ((int) ((r - 0.9) / 0.03)) * 2;
+                val = 6 + ((int) ((r - 0.9) / 0.03))*2;
                 c = 0.5;
             }
             else {
                 if (Math.random() <= 0.5) {
-                    val = 20;
+                    val = 12;
                 }
                 else {
-                    val = 50;
+                    val = 15;
                 }
                 c = 0.2;
             }
