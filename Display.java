@@ -16,12 +16,16 @@ public class Display extends drawInterface {
     Player player;
     Turret turret;
     GameSpace map;
+    Frame frame;
     int tx, ty;
     String scene = "menu";
+    Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
+    Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
     
     
-    public Display(Game g, Mouse m, Keyboard k, MoveMouse mmw) {
+    public Display(Game g, Mouse m, Keyboard k, MoveMouse mmw, Frame frm) {
         super();
+        frame = frm;
         game = g;
         mouse = m;
         kb = k;
@@ -84,5 +88,7 @@ public class Display extends drawInterface {
             line(-10000, i, 10000, i, g, tx, ty);
             line(i, -10000, i, 10000, g, tx, ty);
         }*/
+        //frame.setCursor(arrowCursor);
+        mouse.clicked = false;
     }
 }

@@ -72,7 +72,6 @@ public class CPUPlayer extends Player {
             ang += 180;
         }
         int i = bpind;
-        //System.out.println(x + " " + y + " " + xx + " " + yy + " " + ang + " " + bpind);
         return new double[]{cos(ang), sin(ang)};
     }
     

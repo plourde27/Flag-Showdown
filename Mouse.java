@@ -8,20 +8,13 @@ public class Mouse implements MouseListener{
         pressed = false;
     }
     
-    public int xx(MouseEvent e) {
-        return e.getX();
-    }
-    
-    public int yy(MouseEvent e) {
-        return e.getY();
-    }
-    
     public void mousePressed(MouseEvent e){
         x = e.getX();
-        y = e.getY() - 30;
+        y = e.getY();
         if (!pressed) {
             clicked = true;
             pressed = true;
+            System.out.println(x + " " + y);
         }
         else {
             clicked = false;
@@ -33,13 +26,13 @@ public class Mouse implements MouseListener{
         //pressed = false;
     }
     public void mouseEntered(MouseEvent e) {
-        x = e.getX();
-        y = e.getY() - 30;
+
     }
     public void mouseExited(MouseEvent e) {
 
     }
     public void mouseClicked(MouseEvent e) {
         pressed = false;
+        clicked = false;
     }
 }

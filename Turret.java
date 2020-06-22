@@ -83,7 +83,7 @@ public class Turret extends drawInterface {
         
         if (playerNum == 0) {
             Player p = d.map.players.get(0);
-            if (Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y)) <= shootRadius) {
+            if (p.points >= 2 && Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y)) <= shootRadius) {
                 fill(200, 200, 200, 150, g);
                 rect(540, 75, 1080, 150, g, 0, 0);
                 fill(0, 0, 0, g);
@@ -94,22 +94,36 @@ public class Turret extends drawInterface {
                 String[] names = {"Fire Rate", "Turret Speed", "Bullet Speed", "Bullet Homing"};
                 int[] vars = {(int)(100.0/fireRate), (int)moveRate, bulletSpeed, homingSpeed};
                 int[] costs = {8, 2, 6, 10};
+                d.frame.setCursor(d.arrowCursor);
                 for (int i = 0 ; i < 4 ; i++) {
-                    fill(0, 0, 0, g);
-                    textSize(18, g);
-                    text(names[i], 460 + i * 150, 30, g, 0, 0);
-                    textSize(14, g);
-                    text("Current Value: " + vars[i], 460 + i * 150, 55, g, 0, 0);
-                    text("Cost: " + costs[i] + " Points", 460 + i * 150, 85, g, 0, 0);
-                    fill(240, 240, 240, 150, g);
-                    rect(500 + i * 150, 115, 80, 25, g, 0, 0);
-                    fill(0, 0, 0, g);
-                    textSize(16, g);
-                    text("Upgrade", 467 + i * 150, 121, g, 0, 0);
-                    if (d.mouse.clicked && d.mouse.x >= 460+i*150 && d.mouse.x <= 540+i*150 && d.mouse.y >= 102.5 && d.mouse.y <= 127.5) {
-                        upgrade(i);
+                    if (p.points >= costs[i]) {
+                        fill(0, 0, 0, g);
+                        textSize(18, g);
+                        text(names[i], 460 + i * 150, 30, g, 0, 0);
+                        textSize(14, g);
+                        text("Current Value: " + vars[i], 460 + i * 150, 55, g, 0, 0);
+                        text("Cost: " + costs[i] + " Points", 460 + i * 150, 85, g, 0, 0);
+                        fill(240, 240, 240, 150, g);
+                        rect(500 + i * 150, 115, 80, 25, g, 0, 0);
+                        fill(0, 0, 0, g);
+                        textSize(16, g);
+                        text("Upgrade", 467 + i * 150, 121, g, 0, 0);
+                        if (d.mm.x >= 460+i*150 && d.mm.x <= 540+i*150 && d.mm.y >= 102.5 && d.mm.y <= 127.5 && p.points >= costs[i]) {
+                            if (d.mouse.clicked) {
+                                upgrade(i);
+                                p.points -= costs[i];
+                            }
+                            d.frame.setCursor(d.handCursor);
+                        }
                     }
+                    
                 }
+                //System.out.println(d.mouse.clicked);
+            }
+            else {
+                fill(0, 0, 0, g);
+                textSize(22, g);
+                text(p.points + " Bonus Points", 100, 25, g, 0, 0);
             }
         }
     }
