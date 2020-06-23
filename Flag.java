@@ -46,7 +46,6 @@ public class Flag extends drawInterface {
                         continue;
                     }
                 }
-                ownedPlayer = -1;
                 xMargin = p.x - x;
                 yMargin = p.y - y;
                 heldPlayer = p;
