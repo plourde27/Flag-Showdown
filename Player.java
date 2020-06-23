@@ -22,6 +22,7 @@ public class Player extends drawInterface {
     int ox, oy;
     int prevx, prevy;
     double[] lock = new double[]{};
+    ArrayList<Integer> flagNums;
     
     public Player(int xx, int yy, int nnum) {
         x = xx;
@@ -43,6 +44,12 @@ public class Player extends drawInterface {
     }
     
     public void update(Keyboard kb, Display d) {
+        flagNums = new ArrayList<Integer>();
+        for (int i = 0 ; i < d.map.flags.size() ; i++) {
+            if (d.map.flags.get(i).ownedPlayer == num) {
+                flagNums.add(i);
+            }
+        }
         
         timeout--;
         for (int i = 0 ; i < d.map.bonusPoints.size() ; i++) {

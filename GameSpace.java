@@ -165,6 +165,50 @@ public class GameSpace extends drawInterface {
             flags.get(i).display(g, tx, ty, d);
         }
         
-       
+        ArrayList<Integer> fn = new ArrayList<Integer>();
+        for (int i = 0 ; i < 12 ; i++) {
+            fn.add((12-i-1) + players.get(i).flagNums.size() * 12);
+        }
+        
+        Collections.sort(fn);
+        
+        ArrayList<Integer> inds = new ArrayList<Integer>();
+        for (int i = 11 ; i >= 0 ; i--) {
+            //System.out.println((int)(fn.get(i) / 12) + " " + (fn.get(i)%12));
+            inds.add(12 - fn.get(i) % 12 - 1);
+        }
+        
+        int i = 0;
+        int IC = 22;
+        
+        for (int l = 0 ; l < 12 ; l++) {
+            i = inds.get(l);
+            if (i == 0) {
+                fill(0, 200, 200, 100, g);
+            }
+            else {
+                fill(0, 0, 0, 100, g);
+            }
+            rect(0, 200+l*IC, 320, 20, g, 0, 0);
+            Player p = players.get(i);
+            fill(p.c[0], p.c[1], p.c[2], 200, g);
+            textSize(12, g);
+            text("Player " + (i + 1), 10, 205 + l * IC, g, 0, 0);
+            for (int j = 0 ; j < p.flagNums.size() ; j++) {
+                Flag f = d.map.flags.get(p.flagNums.get(j));
+                int[] color = f.color;
+                int x = 76 + j * 8;
+                int y = 200+l*IC;
+                fill(color[0], color[1], color[2], 250, g);
+                rect(x, y, 2, 16, g, 0, 0);
+                fill(color[0], color[1], color[2], 160, g);
+                vertex(x + 1, y - 8);
+                vertex(x + 5, y - 5);
+                vertex(x + 1, y - 2);
+                vertex(x + 1, y - 8);
+                endShape(g, 0, 0);
+            }
+            i++;
+        }
     }
 }

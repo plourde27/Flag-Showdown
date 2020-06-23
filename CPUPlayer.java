@@ -15,7 +15,6 @@ public class CPUPlayer extends Player {
     int mx;
     boolean left;
     boolean start;
-    String name;
 
     public CPUPlayer(int xx, int yy, int nnum) {
         super(xx, yy, nnum);

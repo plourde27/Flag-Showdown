@@ -15,6 +15,7 @@ public class Flag extends drawInterface {
     int xMargin;
     int yMargin;
     Turret turret;
+    int ownedPlayer;
     
     public Flag(int xx, int yy, int nnum, int[] ccolor, Turret t) {
         x = xx;
@@ -22,6 +23,7 @@ public class Flag extends drawInterface {
         playerNum = nnum;
         color = ccolor;
         turret = t;
+        ownedPlayer = nnum;
     }
     
     public void draw(Graphics g, int tx, int ty) {
@@ -44,6 +46,7 @@ public class Flag extends drawInterface {
                         continue;
                     }
                 }
+                ownedPlayer = -1;
                 xMargin = p.x - x;
                 yMargin = p.y - y;
                 heldPlayer = p;
@@ -59,9 +62,15 @@ public class Flag extends drawInterface {
                 if (Math.sqrt((t.x-x)*(t.x-x)+(t.y-y)*(t.y-y)) <= t.shootRadius && t.playerNum == heldPlayer.num) {
                     double ang = Math.random() * Math.PI * 2;
                     int dst = (int) (Math.random() * t.shootRadius);
-                    x = (int) (t.x + Math.cos(ang) * dst);
-                    y = (int) (t.y + Math.sin(ang) * dst);
+                    int aang = (int) (i * (360.0 / d.map.PLAYER_COUNT));
+                    
+                    x = (int)(d.map.SIZE/2 + (d.map.PLAYER_DIST+400) * cos(aang));
+                    y = (int)(d.map.SIZE/2 + (d.map.PLAYER_DIST+400) * sin(aang));
+                    x += (int) (Math.random() * 40 - 20);
+                    y += (int) (Math.random() * 40 - 20);
+                    
                     heldPlayer = null;
+                    ownedPlayer = i;
                     turret = t;
                     break;
                 }
