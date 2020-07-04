@@ -26,6 +26,11 @@ public class CPUPlayer extends Player {
     }
     
     public double[] move(Keyboard kb, Display d) {
+        if (timeout <= 0) {
+            shoot(d);
+            timeout = fireRate;
+        }
+        
         if (start) {
             int count = 12;
             int a = (int) (num * (360.0 / count));
@@ -36,6 +41,7 @@ public class CPUPlayer extends Player {
             }
             return openingPush(d);
         }
+        
         return new double[]{};
     }
     
