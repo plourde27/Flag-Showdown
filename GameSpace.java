@@ -109,17 +109,26 @@ public class GameSpace extends drawInterface {
             flags.add(f);
             
             //Wall w = new Wall(t.x - 100, t.y, t.x, t.y + 100, i);
-            walls.add(new Wall(i, t.x, t.y, ang, 100, 80, -100, 80));
+            /*walls.add(new Wall(i, t.x, t.y, ang, 100, 80, -100, 80));
             walls.add(new Wall(i, t.x, t.y, ang, 100, -80, -100, -80));
             walls.add(new Wall(i, t.x, t.y, ang, -100, -80, -100, -180));
             walls.add(new Wall(i, t.x, t.y, ang, -100, -180, 200, -180));
             walls.add(new Wall(i, t.x, t.y, ang, -100, 80, -100, 180));
-            walls.add(new Wall(i, t.x, t.y, ang, -100, 180, 200, 180));
-            walls.add(new Wall(i, t.x, t.y, ang, -180, -40, -180, -300));
-            walls.add(new Wall(i, t.x, t.y, ang, -180, -300, 300, -300));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, 180, 200, 180));*/
+            walls.add(new Wall(i, t.x, t.y, ang, -100, -100, 100, -100));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, 100, 100, 100));
+            walls.add(new Wall(i, t.x, t.y, ang, 100, -100, 100, 100));
+            walls.add(new Wall(i, t.x, t.y, ang, -200, -60, -200, -300));
+            walls.add(new Wall(i, t.x, t.y, ang, -200, -300, 300, -300));
             walls.add(new Wall(i, t.x, t.y, ang, 300, -300, 300, 300));
-            walls.add(new Wall(i, t.x, t.y, ang, -180, 40, -180, 300));
-            walls.add(new Wall(i, t.x, t.y, ang, -180, 300, 300, 300));
+            walls.add(new Wall(i, t.x, t.y, ang, -200, 60, -200, 300));
+            walls.add(new Wall(i, t.x, t.y, ang, -200, 300, 300, 300));
+            walls.add(new Wall(i, t.x, t.y, ang, 200, -90, 200, -50));
+            walls.add(new Wall(i, t.x, t.y, ang, 200, 90, 200, 50));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, -200, -60, -200));
+            walls.add(new Wall(i, t.x, t.y, ang, 40, -200, 80, -200));
+            walls.add(new Wall(i, t.x, t.y, ang, -100, 200, -60, 200));
+            walls.add(new Wall(i, t.x, t.y, ang, 40, 200, 80, 200));
             
             for (int j = 520 ; j <= 1700 ; j += 240) {
                 walls.add(new Wall(i, SIZE / 2, SIZE / 2, (int) (ang + (180.0 / PLAYER_COUNT)), j, 0, j + 180, 0));

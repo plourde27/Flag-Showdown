@@ -18,7 +18,7 @@ public class You extends Player {
             ang += 180;
         }
         if (kb.keys[32] && timeout <= 0) {
-            shoot(d);
+            shoot(d, (int)ang);
             timeout = fireRate;
         }
         

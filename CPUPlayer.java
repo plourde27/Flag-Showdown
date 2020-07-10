@@ -15,6 +15,9 @@ public class CPUPlayer extends Player {
     int mx;
     boolean left;
     boolean start;
+    int shootx, shooty;
+    int ERROR;
+    int tg;
 
     public CPUPlayer(int xx, int yy, int nnum) {
         super(xx, yy, nnum);
@@ -23,11 +26,38 @@ public class CPUPlayer extends Player {
         left = true;
         mx = 5;
         start = true;
+        shootx = -1;
+        shooty = -1;
+        tg = 0;
+        ERROR = 5;
     }
     
     public double[] move(Keyboard kb, Display d) {
-        if (timeout <= 0) {
-            shoot(d);
+        int md = 500;
+        int mi = -1;
+        shootx = -1;
+        shooty = -1;
+        tg = 0;
+        for (int i = 0 ; i < 12 ; i++) {
+            if (i == num) {
+                continue;
+            }
+            int xx = d.map.players.get(i).x;
+            int yy = d.map.players.get(i).y;
+            if (Math.sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy)) <= md) {
+                md = (int)Math.sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy));
+                mi = i;
+            }
+        }
+        if (mi != -1) {
+            shootx = d.map.players.get(mi).x + (int)(Math.random()*ERROR);
+            shooty = d.map.players.get(mi).y + (int)(Math.random()*ERROR);
+            tg = (int)(Math.atan((shooty - y) / ((double)(shootx - x))) * (180 / Math.PI));
+            if (shootx < x) tg += 180;
+        }
+        
+        if (timeout <= 0 && mi != -1) {
+            shoot(d, tg);
             timeout = fireRate;
         }
         

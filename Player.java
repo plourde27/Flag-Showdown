@@ -23,6 +23,8 @@ public class Player extends drawInterface {
     int prevx, prevy;
     double[] lock = new double[]{};
     ArrayList<Integer> flagNums;
+    int respawnTime = 0;
+    int FPS = 50;
     
     public Player(int xx, int yy, int nnum) {
         x = xx;
@@ -31,15 +33,21 @@ public class Player extends drawInterface {
         oy = y;
         num = nnum;
         ang = -90;
-        fireRate = 10;
-        bulletSpeed = 20;
+        fireRate = 20;
+        bulletSpeed = 18;
         c = new int[]{(int)(Math.random()*180 + 30), (int)(Math.random()*180 + 30), (int)(Math.random()*180 + 30)};
     }
     
     public void draw(Graphics g, int tx, int ty) {
-        fill(c[0], c[1], c[2], g);
-        ellipse(x, y, 30, 30, g, tx, ty);
-        
+        if (respawnTime <= 0) {
+            fill(c[0], c[1], c[2], g);
+            ellipse(x, y, 30, 30, g, tx, ty);
+        }
+        else {
+            fill(0, 0, 0, g);
+            textSize(24, g);
+            text(Integer.toString(respawnTime/FPS + 1), x, y, g, tx, ty);
+        }
         
     }
     
@@ -95,18 +103,22 @@ public class Player extends drawInterface {
         return new double[]{};
     }
     
-    public void shoot(Display d) {
-        d.map.bullets.add(new Bullet(null, 0, x, y, (int)ang, bulletSpeed, c, num));
+    public void shoot(Display d, int a) {
+        d.map.bullets.add(new Bullet(null, 0, x, y, (int)a, bulletSpeed, c, num));
     }
     
     public void display(Graphics g, Keyboard kb, int tx, int ty, Display d) {
         draw(g, tx, ty);
-        update(kb, d);
+        if (respawnTime <= 0) {
+            update(kb, d);
+        }
+        respawnTime--;
     }
     
     public void die(Display d) {
         x = ox;
         y = oy;
+        respawnTime = 10 * FPS;
         for (int i = 0 ; i < d.map.flags.size() ; i++) {
             Flag f = d.map.flags.get(i);
             if (f.heldPlayer == this) {
