@@ -21,6 +21,7 @@ public class Display extends drawInterface {
     String scene = "menu";
     Cursor handCursor = new Cursor(Cursor.HAND_CURSOR);
     Cursor arrowCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    int[][] cs;
     
     
     public Display(Game g, Mouse m, Keyboard k, MoveMouse mmw, Frame frm) {
@@ -37,6 +38,11 @@ public class Display extends drawInterface {
         
         tx = 0;
         ty = 0;
+        
+        cs = new int[220][3];
+        for (int i = 0 ; i < 220 ; i++) {
+            cs[i] = new int[]{(int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255)};
+        }
     }
     
     public void draw(){
@@ -67,6 +73,32 @@ public class Display extends drawInterface {
             text("Created and Coded by Xavier Plourde", 390, 190, g, tx, ty);
             textSize(38, g);
             text("Click to Play", 350, 520, g, tx, ty);
+            for (int x = 20 ; x <= 1080 ; x += 40) {
+                int i = (x - 20) / 40;
+                int y = 410;
+                int SZ = 3;
+                fill(cs[i][0], cs[i][1], cs[i][2], 250, g);
+                rect(x, y, 4*SZ, 30*SZ, g, 0, 0);
+                fill(cs[i][0], cs[i][1], cs[i][2], 160, g);
+                
+                vertex(x + SZ*2, y - SZ*15);
+                vertex(x + SZ*9, y - SZ*10);
+                vertex(x + SZ*2, y - SZ*5);
+                vertex(x + SZ*2, y - SZ*15);
+                endShape(g, 0, 0);
+                
+                y = 290;
+                
+                fill(cs[i+100][0], cs[i+100][1], cs[i+100][2], 250, g);
+                rect(x, y, 4*SZ, 30*SZ, g, 0, 0);
+                fill(cs[i+100][0], cs[i+100][1], cs[i+100][2], 160, g);
+                
+                vertex(x + SZ*2, y - SZ*15);
+                vertex(x + SZ*9, y - SZ*10);
+                vertex(x + SZ*2, y - SZ*5);
+                vertex(x + SZ*2, y - SZ*15);
+                endShape(g, 0, 0);
+            }
             if (mouse.clicked) {
                 scene = "play";
             }

@@ -29,7 +29,15 @@ public class CPUPlayer extends Player {
         shootx = -1;
         shooty = -1;
         tg = 0;
-        ERROR = 5;
+        ERROR = 8;
+    }
+    
+    public double[] goForFlag(int nm) {
+        int count = 12;
+        int a = (int) (nm * (360.0 / count));
+        int xx = (int)(SIZE/2+1800*cos(a));
+        int yy = (int)(SIZE/2+1800*sin(a));
+        return target(xx, yy);
     }
     
     public double[] move(Keyboard kb, Display d) {
@@ -50,10 +58,11 @@ public class CPUPlayer extends Player {
             }
         }
         if (mi != -1) {
-            shootx = d.map.players.get(mi).x + (int)(Math.random()*ERROR);
-            shooty = d.map.players.get(mi).y + (int)(Math.random()*ERROR);
+            shootx = d.map.players.get(mi).x;
+            shooty = d.map.players.get(mi).y;
             tg = (int)(Math.atan((shooty - y) / ((double)(shootx - x))) * (180 / Math.PI));
             if (shootx < x) tg += 180;
+            tg += (int)(Math.random() * ERROR * 2 - 5);
         }
         
         if (timeout <= 0 && mi != -1) {
@@ -72,7 +81,7 @@ public class CPUPlayer extends Player {
             return openingPush(d);
         }
         
-        return new double[]{};
+        return goForFlag((num + 11) % 12);
     }
     
     public double[] openingPush(Display d) {

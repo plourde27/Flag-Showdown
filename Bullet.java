@@ -70,7 +70,7 @@ public class Bullet extends drawInterface {
                 continue;
             }
             Player p = d.map.players.get(i);
-            if (Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y)) <= 15) {
+            if (Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y)) <= 15 && p.respawnTime <= 0) {
                 p.die(d);
                 dead = true;
                 break;
